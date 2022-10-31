@@ -32,7 +32,7 @@
         
   The best place to start learning about Quiet Text is
   the Quiet Text Web Site at
-  <a href="https://quiet.meadhbh.hamrick.rocks/">https://quiet.meadhbh.hamrick/</a>.
+  <a href="https://quiet.meadhbh.hamrick.rocks/">https://quiet.meadhbh.hamrick.rocks/</a>.
   It describes the format of a typical quiet text
   document, how they're converted to other formats
   and a bit about the project's history.
