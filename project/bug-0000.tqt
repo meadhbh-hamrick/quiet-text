@@ -1,0 +1,15 @@
+Bug 0000 : Create Repo
+
+:: Status
+
+Complete.
+
+:: Description
+
+Create repo and populate it with skeletal files.
+
+:: Completion Criteria
+
+## Has the repository been created on github.com?
+## Does the repo contain skeletal files?
+

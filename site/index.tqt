@@ -1,0 +1,62 @@
+Quiet Text
+
+Copyright (c) 2022, Meadhbh Hamrick. All Rights Reserved.
+
+Released under a CC-BY-NC-SA-4.0 license.
+
+   Quiet Text is a set of conventions for extracting
+   structure and markup from regular UTF-8 text.
+   Documents following these conventions may be used
+   directly (as text files) or converted to XML/DocBook,
+   HTML, RTF or PDF formats.  Quiet Text largely eschews
+   explicit markup, extracting semantic intent from
+   structure, position and indentation of a human
+   readable text file.
+
+   This site describes the basic structure of a "quiet
+   text" document and how to convert
+
+:: 1. What is Quiet Text
+
+Quiet Text is a way to go from this:
+
+>> :: Example Section Header
+>>
+>> This is a simple example of text in a quiet text
+>> document.  Here is a list of things:
+>>
+>> ## Thing One
+>> ## Thing Two
+>>    ** Thing Two dot One
+>>    ** Thing Two dot Two
+>> ## Thing Three
+
+to this:
+
+>> <section>
+>> 
+>>   <h3>Example Section Header</h3>
+>> 
+>>   <p>
+>>     This is a simple example of text in a quiet text
+>>     document.  Here is a list of things:
+>>   </p>
+>> 
+>>   <ol>
+>>     <li>Thing One</li>
+>>     <li>Thing Two
+>>       <ul>
+>>         <li>Thing Two dot One</li>
+>>         <li>Thing Two dot Two</li>
+>>       </ul>
+>>     </li>
+>>     <li>Thing Three</li>
+>>   </ol>
+>>   
+>> </section>
+    
+It is not a markup language, but a way to extract content
+and structure from a text file without resorting to tags
+or hard-to-remember markup characters.  Quiet Text allows
+you to write pretty text files and then construct HTML or
+PDF files from them.
