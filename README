@@ -1,7 +1,13 @@
-<h1>Quiet Text Information and Tools</h1>
+<h1>
+
+Quiet Text Information and Tools
+
+</h1>
 
 <p>
+
   Testing. Test. Test. I pushed a previous version of
   this file and it didn't render as HTML.  I think it's
   because github doesn't like semantic tags.
+  
 </p>
