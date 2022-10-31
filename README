@@ -1,13 +1,5 @@
-<h1>
+This is a test
 
-Quiet Text Information and Tools
+Testing... One... Two...
 
-</h1>
-
-<p>
-
-  Testing. Test. Test. I pushed a previous version of
-  this file and it didn't render as HTML.  I think it's
-  because github doesn't like semantic tags.
-  
-</p>
+Can I add a link to an <a href="./readme.tqt">arbitrary file</a> ?
