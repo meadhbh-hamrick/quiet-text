@@ -1,0 +1,24 @@
+{
+  "name": "quiet-text",
+  "version": "0.1",
+  "description": "Tools and Documentation for Quiet Text",
+  "author": "Meadhbh Hamrick <meadhbh+npm@hamrick.rocks> (https://meadhbh.hamrick.rocks/)",
+  "homepage": "https://github.com/meadhbh-hamrick/quiet-text",
+  "keywords": [ "quiet", "quiettext", "markup", "static", "warp", "weft", "tangle" ],
+  "bugs": {
+    "url": "https://github.com/meadhbh-hamrick/quiet-text#comments-suggestions-and-bugs"
+  },
+  "license": "BSD-3-Clause",
+  "bin": {
+    "warp": "./bin/warp",
+    "weft": "./bin/weft"
+  },
+  "repository": "github:meadhbh-hamrick/quiet-text",
+  "scripts": {
+    "test": "npx jest"
+  },
+  "devDependencies": {
+    "jest": "^29.2.2"
+  },
+  "private": true
+}
