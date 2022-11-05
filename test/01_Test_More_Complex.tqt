@@ -1,0 +1,84 @@
+Simple Quiet Text Test Document
+
+Copyright (c) 2022, Meadhbh Hamrick <meadhbh@hamrick.rocks>
+
+Licensed under
+
+   This is a simple document to test the warp lexxer and
+   parser.  It can also be used as an example quiet text
+   document.
+
+:: Introduction
+
+   This is intended to be a simple test document.  We have a
+   few paragraphs in a couple of sections.  There's also a
+   couple of lists, some of which are indented.  Here's some
+   terminology:
+
+   ** Lines vs. Blocks vs. Paragraphs -- A //line// is a line
+      of text, a series of characters terminated with an end of
+      line character or the end of a file.  A //block// of text
+      is one or more successive lines with the similar
+      indentation.  Blocks towards the beginning of the text
+      usually represent metadata.  Blocks that start with a
+      section header marker are section headers.  Otherwise
+      they're probably //paragraphs//.
+
+   ** Paragraphs and Sentences -- Paragraphs are represented as
+      either a line of text or an array of //sentences//.  The
+      ``warp`` tool //should// separated sentences when it
+      see's a //punctuation mark// and two spaces.  (You can
+      also put a single quote ('), a double quote ("), a close
+      parentheses (')') or a a close brace (]) between the
+      punctuation mark and the two spaces.  (This is to support
+      the use case of terminating a sentence inside a
+      parenthetical aside.)  [Or an editorial comment from the
+      editor --Ed.]
+
+      A period on the end of a line is assumed to terminate a
+      sentence, so don't end lines with initialisms like J. S.
+      Bach.  This last sentence will confuse the lexxer.  If
+      you care about proper sentence recognition, then put the
+      whole initialism on it's own line.  This is sub-optimal,
+      but I don't think J. S. Bach or Philip K. Dick will care.
+
+   ** Markers -- A //marker// is a bit of markup describing
+      a structural or stylistic implication.  "In Line Markers"
+      include double slashes (\//) which enclose text intended
+      to be italicized.  Double underscores (\__) enclose
+      underlined content.  Double less-than digraphs (\<<) and
+      double greater-than digraphs (/>>) enclose <<STRONG>>
+      text.  STRONG text will probably be rendered with a
+      <<bold>> font.
+
+      The double-hyphen digraph (\--) represents an emdash or
+      a field separator.  In this text we're using it as a
+      field separator.  If the first sentence in an unordered
+      list has a
+
+
+
+:: Things We're testing
+
+   1. Title -- The first block of text 
+
+   2. Copyright --
+
+   3. License --
+
+   4. Abstract --
+
+   5. Metadata in General --
+
+   6. Sections --
+
+   7. Paragraphs --
+
+   8. Numbered Lists --
+
+   9. Bulleted Lists --
+
+   10. Embedded Lists --
+
+:: About Specific Tests
+
