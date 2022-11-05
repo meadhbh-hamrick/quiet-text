@@ -1,0 +1,46 @@
+A Very Simple Quiet Text Document
+
+This is a simple document consisting of only a title and a few
+paragraphs.  Like all good paragraphs, these paragraphs contain
+multiple sentences, each separated by a full stop (period) and
+two spaces.  I may also be able to contrive an example of where
+a double quote or parentheses comes between the punctuation
+mark and the two spaces.
+
+The intent is to demonstrate the basics of Quiet Text.  Above
+all, you're supposed to be able to write readable text files.
+Quiet Text is more about extracting structure and styling from
+a well formatted text file.  The text files are intended to be
+readable by themselves -- they're not the "source file" for a
+PDF or a HTML file.
+
+But we live in a world where HTML and PDF are popular, so it's
+madness to ignore that.  But my toolchain has me typing content
+into a text file with a text editor.  I edit the content and
+only then do I consider converting it into some other format.
+Quiet Text originated with the observation that I live in a
+terminal window.  Text files (first ASCII, then UTF-8) files
+on a hard drive I edit with Emacs are the center of my
+intellectual life.  Like Unix(tm), for me, everything is a
+file.
+
+But I forgot to demonstrate a sentence with a trailing quote.
+Remember, I divide sentences with a punctuation mark and two
+spaces.  But what if you have a parenthetical aside (like this
+one?)  What will the parser look for?  How will it know "what
+to do?"  Parentheses and quotes (even single quotes) don't
+confuse the parser because it knows sentences are separated
+with a punctuation mark, an optional quote, double quote,
+close parentheses or close square bracket followed by either
+a newline or two (or more) spaces.
+
+I hope that you're reading the text version of this file.  You
+should see that it's quite readable.  There's no "shouty"
+markup.  Not a single HTML element to be seen.  Just text.
+
+We can use the ``warp`` and ``weft`` tools to build a HTML
+version of this file.  And from there we could use PrinceXML,
+PhantomJS or wkhtmltopdf to convert the HTML file to a PDF.
+
+For the curious, this file is used to test the function of the
+quiet-text lexxer and parser and the ``warp`` utility.

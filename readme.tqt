@@ -61,7 +61,7 @@ brief discussion about branching in the
 [[ ./project/branching ]] file.
 
 We do not use the Github Issues, Wiki or Project
-features.  To make a comment or file a bug, clone this
+features.  To make a comment or file a bug, fork this
 repo, add an entry to the [[ ./project/comments.tqt ]] or
 [[ ./project/bugs.tqt ]] file and submit it as a pull
 request.
