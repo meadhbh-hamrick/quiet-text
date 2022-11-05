@@ -1,0 +1,50 @@
+Introduction to the Quiet Text Project
+
+Abstract:
+Documentation in this directory relates to the Quiet Text Project (in contrast to Quiet Text Tools man-pages or a description of the Quiet Text conventions.)
+This specific document provides an overview to the project, it's documentation, how bugs and features are tracked and how you can provide comments or file bugs.
+Documents in this directory were written before the Quiet Text Web Site was constructed and overlap somewhat with the web site.
+Where the two differ, the [[ # Quiet Text Web Site ]] should be considered authoritative, information here is likely historical.
+
+:: What is Quiet Text and Why Should I Care?
+
+<<Quiet Text>> is a collection of conventions for extracting structure, style and content from plain text files.
+It differs from markup languages (including [[ #MarkDown ]] and [[ #DocBook ]]) as it assumes the original text files have an existence independent of their use as the input to a process that produces HTML files.
+Quiet Text tools extract structure and style information from well formatted, //human readable// text files; files that will likely be the primary artifacts for projects.
+
+In short, I live in a terminal window and everything I write is text.
+Occasionally I need to turn those text files into HTML or PDF, but existing markup languages look "shouty" (or even "ugly".)
+Quiet Text lets me author pleasant looking text files I can edit in a terminal window with my favorite text editor.
+And when I need to convert them into HTML, it's not hard.
+
+The original motivation for writing Quiet Text tools was to support a personal Zettlekasten system and a static web site project.
+Later it became useful for a home-brew micro-blogging project and to construct product documentation.
+
+The tools and the Quiet Text "format" itself have undergone extensive refinement over several years.
+This project is an effort to rewrite "sub-optimal" code and in doing so force the Quiet Text conventions to stabilize.
+The project also provides an excuse to rewrite C code in JavaScript, something I believe will make development easy and will allow people to add Quiet Text support on the command line (where I live) and the web (where everyone else in the world seems to live.)
+
+If (like me) much of your daily document output is in text files, Quiet Text tools like ``warp`` and ``weft`` may make it easier to generate HTML and PDF versions of your docs while maintaining //pretty// text documents.
+
+If you find modern project wiki's or bug tracking tools sub-optimal, Quiet Text may be the cornerstone of an alternative.
+No offense to [[ #Atlassian ]], but I find [[ #JIRA ]] difficult to use and I have problems with the way Project Wikis (like [[ #Confluence ]]) are used in modern software development teams.
+As an alternative, I store project documentation (including information about tasks and objectives) in text files tracked in (mostly) git repositories.
+This allows me to use familiar, trusty tools (``emacs`` and ``vim``) to create and update docs and tickets while maintaining a project history with ``git`` (or sometimes ``hg``.)
+But we use the ``warp`` and ``weft`` tools to automagically generate HTML files to be perused by people who don't want to live in the terminal.
+And with the specification of [[ #W3C Paged Media ]] and tools like [[ #PrinceXML ]], [[ #wkhtmltopdf ]], [[ #WeasyPrint ]] and [[ #Other Free HTML to PDF Utilities ]], it is easy to create substantial PDF texts using only a text editor and command line tools.
+
+If you use [[ #MarkDown ]] or [[ #DocBook ]] to build HTML or PDF documents, you //may// find Quiet Text a decent alternative.
+
+:: References
+
+@@ QuietTextWebSite -- https://quiet.meadhbh.hamrick.rocks/
+@@ MarkDown -- https://daringfireball.net/projects/markdown/
+@@ DocBook -- https://docbook.org/
+@@ Atlassian -- https://www.atlassian.com/
+@@ JIRA -- https://www.atlassian.com/software/jira
+@@ Confluence -- https://www.atlassian.com/software/confluence
+@@ W3CPagedMedia -- https://www.w3.org/TR/css-page-3/
+@@ PrinceXML -- https://en.wikipedia.org/wiki/Prince_(software)
+@@ wkhtmltopdf -- https://wkhtmltopdf.org/
+@@ WeasyPrint -- https://weasyprint.org/
+@@ OtherFreeHTMLtoPDFUtilities -- https://alternativeto.net/software/prince-xml/
