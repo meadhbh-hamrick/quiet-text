@@ -1,0 +1,12 @@
+Todos
+
++------+---------------------------------------------------------------+
+|  Id  |  Status  | Description                                        |
++------+----------+----------------------------------------------------+
+| 0000 | Complete | [[ Create Repo == ./bug-0000 ]]                    |
+| 0001 | Open     | [[ Complete Project Documentation == ./bug-0001 ]] |
+| 0002 | Backlog  | [[ Write Warp == ./bug-0002 ]]                     |
+| 0003 | Backlog  | [[ Write Weft == ./bug-0003 ]]                     |
+| 0004 | Backlog  | [[ How to Build Site == ./bug-0004 ]]              |
+| 0005 | Backlog  | [[ How to Project Docs == ./bug-0005 ]]            |
++------+----------+----------------------------------------------------+

@@ -1,0 +1,33 @@
+Bug 0001 : Complete Project Documentation
+
+:: Status
+
+Open
+
+:: Description
+
+Write initial documentation.
+Doesn't need to be perfect.
+
+:: Completion Criteria
+
+## Is there a decent overview in [[ ../00_Introduction.tqt ]] ?
+
+## Is there at least a basic discussion of design and requirements in [[ ../20_Design.tqt ]] ?  
+
+## Are the //features// of Quiet Text documented in [[ ../10_Features.tqt ]] ?
+
+## Is there a description of how to add bugs or comments in the [[ ../40_Bugs.tqt ]] and [[ ../60_Comments.tqt ]] files?
+   (Including what fields you need in a bug or todo description.)
+
+:: Anti-Requirements
+
+## Docs do not need to be perfect.
+
+## Docs do not need to be complete.
+
+:: Comments
+
+** 2022 NOV 02 11:45 == Created.
+
+** 2022 NOV 02 12:37 == It's okay to do basic work on this, create new bugs for the backlog describing more detailed work and then mark this one as complete.
