@@ -14,11 +14,11 @@ Code released under a BSD-3-Clause license.
 
 :: More Information About Quiet Text
 
-The best place to start learning about Quiet Text is the Quiet Text Web Site at https://quiet.meadhbh.hamrick/ .
+The best place to start learning about Quiet Text is the Quiet Text Web Site at https://quiet.meadhbh.hamrick.rocks/ .
 It describes the format of a typical quiet text document, how they're converted to other formats and a bit about the project's history.
 
 The web site is mechanically generated from the web site source code in the [[ ./site ]] directory using tools found in the [[ ./bin ]] directory.
-You can generate a local copy of the site using the [[ ./Makefile ]] in this directory, thouhg you will need a recent version of node.js and ``make`` installed.
+You can generate a local copy of the site using the [[ ./Makefile ]] in this directory, though you will need a recent version of node.js and ``make`` installed.
 
 The [[ ./examples ]] directory contains examples of using Quiet Text to generate product documentation, a simple web site and HTML fragments using the tools provided by this repo.
 

@@ -32,7 +32,7 @@
 
   The best place to start learning about Quiet Text is the
   Quiet Text Web Site at
-  <a href="https://quiet.meadhbh.hamrick/">https://quiet.meadhbh.hamrick/</a> .
+  <a href="https://quiet.meadhbh.hamrick.rocks/">https://quiet.meadhbh.hamrick.rocks/</a> .
   It describes the format of a typical quiet text document, how
   they're converted to other formats and a bit about the
   project's history.
@@ -45,7 +45,7 @@
   source code in the <a href="./site">./site</a> directory
   using tools found in the <a href="./bin">./bin</a> directory.
   You can generate a local copy of the site using the
-  <a href="./Makefile">./Makefile</a> in this directory, thouhg
+  <a href="./Makefile">./Makefile</a> in this directory, though
   you will need a recent version of node.js and
   <code>make</code> installed.
 
@@ -77,7 +77,7 @@
 
 <p>
           
-  The <a href="https://quiet.meadhbh.rocks/tools/">Tools</a>
+  The <a href="https://quiet.meadhbh.hamrick.rocks/tools/">Tools</a>
   section of the web site describes how to use these utilities.
 
 </p>
