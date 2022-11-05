@@ -38,7 +38,11 @@
   project's history.
 
 </p>
-      
+
+<p>
+  [ While the Quiet Text Web Site is under construction, information about Quiet Text conventions and tools may be found in <a href="./project/00_Introduction.md">./project/00_Introduction.md</a>, <a href="./project/10_Features.md">./project/10_Features.md</a> and <a href="./project/20_Design">./project/20_Design</a>. ]
+</p>
+
 <p>
   
   The web site is mechanically generated from the web site

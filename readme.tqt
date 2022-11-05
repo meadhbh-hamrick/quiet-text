@@ -17,6 +17,8 @@ Code released under a BSD-3-Clause license.
 The best place to start learning about Quiet Text is the Quiet Text Web Site at https://quiet.meadhbh.hamrick.rocks/ .
 It describes the format of a typical quiet text document, how they're converted to other formats and a bit about the project's history.
 
+[ While the Quiet Text Web Site is under construction, information about Quiet Text conventions and tools may be found in [[ ./project/00_Introduction.md ]], [[ ./project/10_Features.md ]] and [[ ./project/20_Design ]]. ]
+
 The web site is mechanically generated from the web site source code in the [[ ./site ]] directory using tools found in the [[ ./bin ]] directory.
 You can generate a local copy of the site using the [[ ./Makefile ]] in this directory, though you will need a recent version of node.js and ``make`` installed.
 
