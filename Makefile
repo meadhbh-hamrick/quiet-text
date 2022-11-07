@@ -2,11 +2,13 @@
 #
 
 info:
-	@echo Targets include: install, site, test, clean
-	@echo install - download node dependencies
-	@echo site - builds HTML site using warp and weave
-	@echo test - tests lexxer, parser, warp and weave
-	@echo clean - removes node_modules and package-lock.json
+	@echo
+	@echo "Targets include: install, site, test, clean"
+	@echo "   install - download node dependencies"
+	@echo "   site    - builds HTML site using warp and weave"
+	@echo "   test    - tests lexxer, parser, warp and weave"
+	@echo "   clean   - removes node_modules and package-lock.json"
+	@echo
 
 install:
 	npm install
