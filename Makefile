@@ -17,7 +17,7 @@ site:
 	@echo ToDo: Implement site functionality
 
 test:
-	npm run test
+	npm test
 
 clean:
 	$(RM) -r node_modules package-lock.json
