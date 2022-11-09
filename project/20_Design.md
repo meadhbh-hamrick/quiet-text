@@ -68,9 +68,9 @@
 
 <p>
 
-  ``Lexxer.js`` is a package which scans input quite text, looking for //lexically significant character sequences//.
+  <code>Lexxer.js</code> is a package which scans input quite text, looking for <em>lexically significant character sequences</em>.
   This usually means things like newlines at the ends of lines and blanks at the beginnings of lines.
-  To simplify the parser, the lexxer also groups lines of non-markup text as //text// symbols.
+  To simplify the parser, the lexxer also groups lines of non-markup text as <em>text</em> symbols.
 
 </p>
 
@@ -92,7 +92,7 @@ period. And witness, my dear friends, the complete
 absence of the Oxford Comma.</pre>
 
 <p>
-  Into a sequence of //events// like this:
+  Into a sequence of <em>events</em> like this:
 </p>
 
 <ol>
