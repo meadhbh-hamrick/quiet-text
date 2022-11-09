@@ -8,7 +8,7 @@ Where the two differ, the [[ # Quiet Text Web Site ]] should be considered autho
 
 :: What is Quiet Text and Why Should I Care?
 
-<<Quiet Text>> is a collection of conventions for extracting structure, style and content from plain text files.
+!! Quiet Text !! is a collection of conventions for extracting structure, style and content from plain text files.
 It differs from markup languages (including [[ #MarkDown ]] and [[ #DocBook ]]) as it assumes the original text files have an existence independent of their use as the input to a process that produces HTML files.
 Quiet Text tools extract structure and style information from well formatted, //human readable// text files; files that will likely be the primary artifacts for projects.
 
