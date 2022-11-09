@@ -40,7 +40,7 @@
 </p>
 
 <p>
-  [ While the Quiet Text Web Site is under construction, information about Quiet Text conventions and tools may be found in <a href="./project/00_Introduction.md">./project/00_Introduction.md</a>, <a href="./project/10_Features.md">./project/10_Features.md</a> and <a href="./project/20_Design">./project/20_Design</a>. ]
+  [ While the Quiet Text Web Site is under construction, information about Quiet Text conventions and tools may be found in <a href="./project/00_Introduction.md">./project/00_Introduction.md</a>, <a href="./project/10_Features.md">./project/10_Features.md</a> and <a href="./project/20_Design.md">./project/20_Design.md</a>. ]
 </p>
 
 <p>
