@@ -1,0 +1,30 @@
+Quiet Text Tool Design Notes
+
+Abstract:
+This document describes the design of the package's software components.
+We describe the lexxer and parser libraries and the warp and weft tools.
+
+:: Introduction
+
+All software components here are written in JavaScript.
+The ``lexxer.js`` and ``parser.js`` libraries are implemented as CommonJS modules.
+``Warp`` and ``weft`` are implemented as executable JavaScript scripts.
+We expect users to include this package as a dependency in a package.json file and include the ``parser.js`` library or run the executable scripts with the ``npx`` command.
+
+The components are related to each other like this:
+
+<< ./20_1_Component_Relation.png >>
+;; Image -- Relationship Between Components
+
+** ``Warp`` is dependent on ``parser.js``
+** ``Parser.js`` is dependent on ``lexxer.js``
+** ``Weft`` is not dependent on either ``parser.js`` or ``lexxer.js``
+
+But the expected data-flow is this:
+
+<< ./20_2_Data_Flow.png >>
+;; Image -- Expected Data Flow
+
+## ``Warp`` converts a Quiet Text compliant text file into a Quiet Document Model (most likely represented as a JSON object.)
+## ``Weft`` uses the Quiet Document Model output from ``Warp`` and a //Handlebars// compatible template to convert the model into a HTML file (or HTML fragment).
+

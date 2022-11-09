@@ -1,0 +1,27 @@
+digraph {
+  {
+    "Quiet Text\n(foo.tqt)" [ shape = note ]
+    "Doc Model\n(foo.json)" [ shape = note ]
+    "Template\n(article.html)" [ shape = note ]
+    "HTML Document\n(foo.html)" [ shape = note ]
+    "warp" [ shape = box ]
+    "weft" [ shape = box ]
+  }
+  "Quiet Text\n(foo.tqt)" -> "warp";
+  "warp" -> "Doc Model\n(foo.json)";
+  "Doc Model\n(foo.json)" -> "weft";
+  "Template\n(article.html)" -> "weft";
+  "weft" -> "HTML Document\n(foo.html)";
+  {
+    rank = same;
+    "Template\n(article.html)"
+  }
+  { rank = same;
+    "Quiet Text\n(foo.tqt)"
+    "Doc Model\n(foo.json)"
+    "HTML Document\n(foo.html)"
+    "warp"
+    "weft"
+  }
+  
+}
