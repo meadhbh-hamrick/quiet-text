@@ -28,3 +28,49 @@ But the expected data-flow is this:
 ## ``Warp`` converts a Quiet Text compliant text file into a Quiet Document Model (most likely represented as a JSON object.)
 ## ``Weft`` uses the Quiet Document Model output from ``Warp`` and a //Handlebars// compatible template to convert the model into a HTML file (or HTML fragment).
 
+:: lexxer.js
+
+``Lexxer.js`` is a package which scans input quite text, looking for //lexically significant character sequences//.
+This usually means things like newlines at the ends of lines and blanks at the beginnings of lines.
+To simplify the parser, the lexxer also groups lines of non-markup text as //text// symbols.
+
+For example, it would convert this text:
+
+|| Sample Document
+||
+||    In the history of all sample documents, this must
+|| be the sampelest of them all.  Behold the exemplary
+|| exampleness of it's text.  Marvel at the descriptive
+|| mundanity of it's punctuation.
+||
+||    Gasp at the author's bold use of two spaces after a
+|| period. And witness, my dear friends, the complete
+|| absence of the Oxford Comma.
+
+Into a sequence of //events// like this:
+
+## Text "Sample Document"
+## StartOfLine
+## StartOfLine
+## Indent 3
+## Text "In the history of all sample documents, this
+   must"
+## StartOfLine
+## Text "be the sampelest of them all.  Behold the
+   exemplary"
+## StartOfLine
+## Text "exampleness of it's text.  Marvel at the
+   descriptive"
+## StartOfLine
+## Text "mundanity of it's punctuation."
+## StartOfLine
+## StartOfLine
+## Indent 3
+## Text "Gasp at the author's bold use of two spaces
+   after a"
+## StartOfLine
+## Text "period. And witness, my dear friends, the
+   complete"
+## StartOfLine
+## Text "absence of the Oxford Comma."
+## StartOfLine
