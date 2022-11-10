@@ -248,4 +248,33 @@ absence of the Oxford Comma.</pre>
       <p>It contains a few spaces at the beginning, a section marker (::), another
       space, some text and (presumably) a newline at the end.</p></li>
 
+  <li><p>Lines group together to form <em>Blocks</em>.
+      Blocks are separated from one another using one or more blank lines or by a block marker.
+      Blocks can be <em>Paragraph Blocks</em>, <em>Section Blocks</em>, <em>Preformatted Blocks</em>, <em>List Blocks</em>, <em>Quote Blocks</em>, <em>Inclusion Blocks</em> or <em>Metadata Blocks</em>.</p>
+    <p>Here is an example of a section block, a metadata block and four paragraph blocks:</p>
+    <pre>:: Is Email Dead?
+\;\; Updated -- 2022-11-10T07:29:00-0800
+   It was a rainy night; cold too.  I got the call from
+the 5th precinct.  Another protocol had taken the long
+trip to nowheres-ville.
+   "Whadda we got here, Charlie?" I asked O'Malley, the
+flatfoot in charge of keeping the press hounds at bay.
+   "Not sure, sir" he mewled back.  Something was wrong.
+O'Malley was shaken up. He was a good cop; something was
+definitely wrong.
+   "Okay, let's take a look at the corpse."  O'Malley
+took a deep breath and lifted up the sheet.  I gasped out
+loud.  Damn if it wasn't Mr. Killer-App himself: EMail.</pre>
+    <p>The section block starts with a double colon (::).
+      The text following it is interpreted to be a section title.
+      Section titles <em>can</em> be more than one line using indentation rules described below.</p>
+    <p>The metadata block starts with a double semi-colon (;;).
+      The text following it is interpreted as a metadata key/value pair.
+      In this example, it tells us the time the section was last updated.
+      We recognize that the metadata marker denotes a new section because it's marker is different from the previous block's marker.</p>
+    <p>The first line in each of the paragraphs in this example are indented by three spaces.
+      And the subsequent lines in each paragraph are all un-indented (i.e. - they have an indentation level of 0.)
+      This is sufficient for the parser to recognize they're different blocks.
+      Other examples in this document will show paragraphs where each line is non-indented, but paragraphs are separated by blank lines.</p></li>
+
 </ol>
