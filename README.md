@@ -7,21 +7,32 @@
 
 <p class="abstract">
 
-  Quiet Text is a set of conventions for extracting structure
-  and markup from regular UTF-8 text.  Documents following
-  these conventions may be used directly (as text files) or
-  converted to XML/DocBook, HTML, RTF or PDF formats.  Quiet
-  Text largely (but not completely) eschews explicit markup,
-  extracting content, structure and styling from position,
-  indentation and punctuation.
+  Text files rule.
+  There are .doc files from 1997 that barf when I open them in Office 365.
+  Text files from 1979 open just fine in emacs, vi or BBEdit.
+  I live a text-first lifestyle.
+  I write text docs with a text editor and convert them to HTML or PDF only when I have to.
+
+</p>
+    
+<p class="abstract">
+
+  Quiet Text is the set of conventions for identifying structure and style in ASCII or UTF-8 text files.
+  Warp and weft are JavaScript programs to convert quiet text files to HTML documents.
+
+</p>
+    
+<p class="abstract">
+
+  There is a small amount of markup in Quiet Text.
+  But it isn't ugly like Markdown or Enriched Text.
+  And it's made of printable characters so I can see it in whatever text editor I want to use.
       
 </p>
     
 <p class="abstract">
 
-  This repository contains documentation describing Quiet Text
-  conventions and tools to manipulate text documents that
-  follow them.
+  This repository also contains documentation describing Quiet Text conventions and the warp and weft utilities.
 
 </p>
 
