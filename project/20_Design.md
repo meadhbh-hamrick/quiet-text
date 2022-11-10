@@ -239,5 +239,9 @@ absence of the Oxford Comma.</pre>
 </p>
 
 <ol>
-  <li>test item</li>
+  <li>
+    <p>
+      test item
+    </p>
+  </li>
 </ol>
