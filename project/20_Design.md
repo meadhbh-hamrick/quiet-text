@@ -302,7 +302,48 @@ complications a fifth year philosophy student couldn't
 figure out."  Carl meant well, but another distraction
 was the last thing Joe needed at the moment.</pre>
     <p>In this example, we know the title of the document is "Joe and the King".
-      If we were to render a copyright notice, it would look like <em>Copyright (c) 2011, Meadhbh Hamrick. All Rights Reserved</em>.</p></li>
+      If we were to render a copyright notice, it would look like <em>Copyright (c) 2011, Meadhbh Hamrick. All Rights Reserved</em>.</p>
+    <p>There is no explicit list of canonical metadata keys, but the following metadata keys are common: Name, Title, Author, Created, Updated, Copyright, Publisher, License, Caption and Abstract.
+      The <em>Name</em> metatdata key sets an explicit name for the block which the weft tool uses to create a HTML anchor (fragment target).</li>
+
+  <li><p>Quiet Text also recognizes a few //Metadata Prefixes//.
+      If, in the document metadata section at the top of the document, you include a paragraph that begins with "By ", the rest of the paragraph defines an Author's name.
+      If you include a paragraph that begins with "Copyright (c)", it's assumed to define copyright metadata.
+      Other prefixes include:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Prefix</th>
+          <th>Meaning</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>By</td>
+          <td>Author attribution</td>
+        </tr>
+        <tr>
+          <td>Copyright (c</td>
+          <td>Copyright</td>
+        </tr>
+        <tr>
+          <td>Licensed under</td>
+          <td>License</td>
+        </tr>
+        <tr>
+          <td>Doc License</td>
+          <td>License only for documentation</td>
+        </tr>
+        <tr>
+          <td>Code License</td>
+          <td>License only for code</td>
+        </tr>
+        <tr>
+          <td>Abstract</td>
+          <td>Document Abstract</td>
+        </tr>
+      </tbody>
+    </table></li>
 
   <li><p>Paragraph blocks may also feature <em>Hanging Indents</em>.
       This is where the first line of the paragraph is indented less than subsequent lines.
@@ -311,11 +352,11 @@ was the last thing Joe needed at the moment.</pre>
 &nbsp;
 Bush, Vannevar (1945). "As We May Think," //Atlantic
 &nbsp;&nbsp;&nbsp;Monthly, July 1945//
-
+&nbsp;
 Bush, Vannevar (1991). "Memex Revisited," //From Memex to
 &nbsp;&nbsp;&nbsp;hypertext: Vannevar Bush and the Mind's Machine//,
 &nbsp;&nbsp;&nbsp;197-216
-
+&nbsp;
 J. Johnson //et al.// (1989). "The Xerox Star: a
 &nbsp;&nbsp;&nbsp;retrospective," in //Computer//, vol. 22, no. 9,
 &nbsp;&nbsp;&nbsp;pp. 11-26, Sept. 1989, doi: 10.1109/2.35211.</pre></li>
@@ -369,5 +410,68 @@ paragraph only contains two sentences, not four.</pre>
       If you don't follow the "punctuation and two spaces" rule, the parser will create paragraphs it thinks are made of one long sentence (unless you happen to end a line with a punctuation mark.)</p>
     <p>Sentences are used to reformat documents prior to checking into version control and after checking out of version control.
       Modern version control systems like Git and Mercurial produce "diffs" which are significantly more "human readable" when each sentence is on a single line of text.</p></li>
+
+  <li><p><em>Section Blocks</em> begin with a <em>Section Marker</em> made of two colons (::).
+      Text after the section marker is the <em>Section Title</em>.
+      Section titles are optional.
+      Another way to create a new section without a title is to use the triple-asterisk (&#x2a;&#x2a;&#x2a;) or the triple-dash (&#x2d;&#x2d;&#x2d;).
+      If the only text on a line is three consecutive asterisks or three consecutive dashes, it denotes a new, titleless section.
+      Titleless sections may be rendered as three asterisks, a horizontal line or a stylish graphic, depending on the renderer.
+      The difference between a triple-asterisk or a triple-dash is purely aesthetic.
+      Consider this example:
+    <pre>:: New Section
+&nbsp;
+This is a paragraph in the "New Section" section.
+&nbsp;
+&#x2a;&#x2a;&#x2a;
+&nbsp;
+This is a paragraph in a new, untitled section.
+&nbsp;
+&#x2d;&#x2d;&#x2d;
+&nbsp;
+This is also a paragraph in a new, untitled section.</pre>
+  <p>Sections may be nested within each other.
+      If the title following two section markers begins at the same column, those sections are at the same <em>Section Level</em>.
+      Section levels begin with "Level 1" and are the "highest" or "outermost" level.
+      It is counter-intuitive that lower level numbers are considered "higher," but this is common usage.
+      Each time there is a section whose title starts at a column previously unused, we "go down a level."
+      The section marker (::) may be anywhere before the section title and it's position is not used to determine whether two sections are at the same level.
+      Here is another example:</p>
+  <pre>:: Level 1 Section Title
+&nbsp;
+::    Level 2 Section Title
+&nbsp;
+   :: Level 2 Section Title Number 2
+&nbsp;
+:: Level 1 Section Title Number 2
+&nbsp;
+&nbsp;&nbsp;&nbsp;:: Level 2 Section Title Number 3
+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;But this section is subordinate to
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"Level 1 Section Title Number 2."</pre>
+  <p>You can have nested, untitled sections by changing the column the triple-asterisk or triple-dash marker starts on.</p>
+  <pre>:: 3. Random Prose
+&nbsp;
+If you start the triple-asterisk marker in the same
+column as the section title above, it will create a
+peer section.  If you start it somewhere else, it will
+create a nested section.
+&nbsp;
+&#x2a;&#x2a;&#x2a;
+&nbsp;
+This section is subordinate to the "3. Random Prose"
+section.
+&nbsp;
+&#x2d;&#x2d;&#x2d;
+&nbsp;
+This section is also subordinate to the "3. Random
+Prose" section, but we told the renderer that we
+preferred a horizontal line instead of a section
+divider.
+&nbsp;
+&nbsp;&nbsp;&nbsp;&#x2a;&#x2a;&#x2a;
+&nbsp;
+This section is a peer (at the same level) as the
+"3. Random Prose" section.</pre>
 
 </ol>

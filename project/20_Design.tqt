@@ -236,6 +236,25 @@ Quiet Text assumes all documents can be represented with this model:
       In this example, we know the title of the document is "Joe and the King".
       If we were to render a copyright notice, it would look like //Copyright (c) 2011, Meadhbh Hamrick. All Rights Reserved//.
 
+      There is no explicit list of canonical metadata keys, but the following metadata keys are common: Name, Title, Author, Created, Updated, Copyright, Publisher, License, Caption and Abstract.
+      The //Name// metatdata key sets an explicit name for the block which the weft tool uses to create a HTML anchor (fragment target).
+
+   ## Quiet Text also recognizes a few //Metadata Prefixes//.
+      If, in the document metadata section at the top of the document, you include a paragraph that begins with "By ", the rest of the paragraph defines an Author's name.
+      If you include a paragraph that begins with "Copyright (c)", it's assumed to define copyright metadata.
+      Other prefixes include:
+
+      +----------------+--------------------------------+
+      | Prefix         | Meaning                        |
+      +----------------+--------------------------------+
+      | By             | Author attribution             |
+      | Copyright (c)  | Copyright                      |
+      | Licensed under | License                        |
+      | Doc License:   | License only for documentation |
+      | Code License:  | License only for code          |
+      | Abstract:      | Document Abstract              |
+      +----------------+--------------------------------+
+
    ## Paragraph blocks may also feature //Hanging Indents//.
       This is where the first line of the paragraph is indented less than subsequent lines.
       This is encountered in legal documents and reference lists.
@@ -317,10 +336,70 @@ Quiet Text assumes all documents can be represented with this model:
       Sentences are used to reformat documents prior to checking into version control and after checking out of version control.
       Modern version control systems like Git and Mercurial produce "diffs" which are significantly more "human readable" when each sentence is on a single line of text.
 
-   ## The document and all blocks have //Content// and //Metadata//.
-      The content of blocks is the same as document content: paragraphs, preformatted blocks, sections and lists.
-      All blocks have //Name Metadata//, but most blocks' names will be implicitly generated based on their position in the text.
+   ## //Section Blocks// begin with a //Section Marker// made of two colons (::).
+      Text after the section marker is the //Section Title//.
+      Section titles are optional.
+      Another way to create a new section without a title is to use the triple-asterisk (***) or the triple-dash (---).
+      If the only text on a line is three consecutive asterisks or three consecutive dashes, it denotes a new, titleless section.
+      Titleless sections may be rendered as three asterisks, a horizontal line or a stylish graphic, depending on the renderer.
+      The difference between a triple-asterisk or a triple-dash is purely aesthetic.
+      Consider this example:
 
-   ## Documents or blocks may have any bit of metadata, but some metadata does not make sense in each context.
-      Document metadata includes //Name//, //Title//, //Author//, //Creation Date//, //Modification Date//, //Copyright//, //Publisher//, //License//, //Abstract//, etc.
-      Block metadata includes //Class//.
+      || :: New Section
+      ||
+      || This is a paragraph in the "New Section" section.
+      ||
+      || ***
+      ||
+      || This is a paragraph in a new, untitled section.
+      ||
+      || ---
+      ||
+      || This is also a paragraph in a new, untitled section.
+
+      Sections may be nested within each other.
+      If the title following two section markers begins at the same column, those sections are at the same //Section Level//.
+      Section levels begin with "Level 1" and are the "highest" or "outermost" level.
+      It is counter-intuitive that lower level numbers are considered "higher," but this is common usage.
+      Each time there is a section whose title starts at a column previously unused, we "go down a level."
+      The section marker (::) may be anywhere before the section title and it's position is not used to determine whether two sections are at the same level.
+      Here is another example:
+
+      || :: Level 1 Section Title
+      ||
+      || ::    Level 2 Section Title
+      ||
+      ||    :: Level 2 Section Title Number 2
+      ||
+      || :: Level 1 Section Title Number 2
+      ||
+      ||    :: Level 2 Section Title Number 3
+      ||
+      ||       But this section is subordinate to
+      ||       "Level 1 Section Title Number 2."
+
+      You can have nested, untitled sections by changing the column the triple-asterisk or triple-dash marker starts on.
+
+      || :: 3. Random Prose
+      ||
+      || If you start the triple-asterisk marker in the same
+      || column as the section title above, it will create a
+      || peer section.  If you start it somewhere else, it will
+      || create a nested section.
+      ||
+      || ***
+      ||
+      || This section is subordinate to the "3. Random Prose"
+      || section.
+      ||
+      || ---
+      ||
+      || This section is also subordinate to the "3. Random
+      || Prose" section, but we told the renderer that we
+      || preferred a horizontal line instead of a section
+      || divider.
+      ||
+      ||    ***
+      ||
+      || This section is a peer (at the same level) as the
+      || "3. Random Prose" section.
