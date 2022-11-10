@@ -243,6 +243,7 @@ absence of the Oxford Comma.</pre>
   <li><p>All documents are made of a series of <em>Lines</em>.
       A line contains optional spaces, an optional marker, more optional spaces, optional text content and a newline sequence.
       A line with just a newline sequence is called a <em>Blank Line</em>.
-      Here is a sample line:</p></li>
+      Here is a sample line:</p>
+      <pre>:: Section 4: Odysseus and the Lotus Eaters</pre></li>
 
 </ol>
