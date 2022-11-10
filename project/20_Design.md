@@ -240,9 +240,7 @@ absence of the Oxford Comma.</pre>
 
 <ol>
 
-  <li>
-
-    <p>
+  <li><p>
 
       All documents are made of a series of <em>Lines</em>.
       A line contains optional spaces, an optional marker, more optional spaces, optional text content and a newline sequence.
@@ -258,9 +256,7 @@ absence of the Oxford Comma.</pre>
       It contains a few spaces at the beginning, a section marker (::), another
       space, some text and (presumably) a newline at the end.
 
-    </p>
-
-  </li>
+    </p></li>
 
   <li>
 
@@ -279,7 +275,7 @@ absence of the Oxford Comma.</pre>
     </p>
 
     <pre>:: Is Email Dead?
-;; Updated -- 2022-11-10T07:29:00-0800
+\;\; Updated -- 2022-11-10T07:29:00-0800
    It was a rainy night; cold too.  I got the call from
 the 5th precinct.  Another protocol had taken the long
 trip to nowheres-ville.
