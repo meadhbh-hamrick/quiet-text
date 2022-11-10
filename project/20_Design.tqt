@@ -259,7 +259,7 @@ Quiet Text assumes all documents can be represented with this model:
 
       In this example, we see two paragraphs, but it's ambiguous which lines are in which paragraph:
 
-      ||    "Gecko, you have a right to know. Franky, we have reports..."
+      ||    "Gecko, you have a right to know. Frankly, we have reports..."
       ||    "Gecko," the colonel started.  "This damned campaign has
       || flipped over to quirks mode and reports are the border:
       || just turned red.  General staff fears it'll be dotted with
@@ -271,7 +271,7 @@ Quiet Text assumes all documents can be represented with this model:
 
       The author MUST place a blank line between the two to remove the ambiguity:
 
-      ||    "Gecko, you have a right to know. Franky, we have reports..."
+      ||    "Gecko, you have a right to know. Frankly, we have reports..."
       ||
       ||    "Gecko," the colonel started.  "This damned campaign has
       || flipped over to quirks mode and reports are the border:
@@ -281,9 +281,9 @@ Quiet Text assumes all documents can be represented with this model:
    ## Paragraphs MAY be thought of as a collection of sentences.
       Sentences are often separated by a period and two spaces or a period and a newline.
 
-      But sometimes sentences end with single quotes, double quotes, parentheses, square braces, a question mark or an exclaimation point.
+      But sometimes sentences end with single quotes, double quotes, parentheses, square braces, a question mark or an exclamation point.
       So the rule for ending a sentence is: a punctuation mark, an option ending character and then either two lines or a newline.
-      Punctuation marks include a fullstop / period, question mark or exclaimation point.
+      Punctuation marks include a full-stop / period, question mark or exclamation point.
       Ending characters include a single quote, double quote, close parenthesis or close square brace.
 
       This rule allows the parser to properly identify sentences which contain initials like "H. L. Mencken".

@@ -324,7 +324,7 @@ J. Johnson //et al.// (1989). "The Xerox Star: a
       As seen in the examples, the first line may be indented less, the same or more than subsequent lines.
       Where it is ambiguous, the author must separate paragraphs with blank lines.</p>
     <p>In this example, we see two paragraphs, but it's ambiguous which lines are in which paragraph:</p>
-    <pre>   "Gecko, you have a right to know. Franky, we have reports..."
+    <pre>   "Gecko, you have a right to know. Frankly, we have reports..."
    "Gecko," the colonel started.  "This damned campaign has
 flipped over to quirks mode and reports are the border:
 just turned red.  General staff fears it'll be dotted with
@@ -332,7 +332,7 @@ holes after the next event loop."</pre>
     <p>This <em>could</em> be two paragraphs, the first where all lines are indented by three characters and the second has no indentation.</p>
     <p>Or it <em>could</em> be two paragraphs, the first line in each indented by three characters.</p>
     <p>The author MUST place a blank line between the two to remove the ambiguity:</p>
-    <pre>   "Gecko, you have a right to know. Franky, we have reports..."
+    <pre>   "Gecko, you have a right to know. Frankly, we have reports..."
 &nbsp;
 
 &nbsp;&nbsp;&nbsp;"Gecko," the colonel started.  "This damned campaign has
@@ -342,9 +342,9 @@ holes after the next event loop."</pre></li>
 
   <li><p>Paragraphs MAY be thought of as a collection of sentences.
       Sentences are often separated by a period and two spaces or a period and a newline.</p>
-    <p>But sometimes sentences end with single quotes, double quotes, parentheses, square braces, a question mark or an exclaimation point.
+    <p>But sometimes sentences end with single quotes, double quotes, parentheses, square braces, a question mark or an exclamation point.
       So the rule for ending a sentence is: a punctuation mark, an option ending character and then either two lines or a newline.
-      Punctuation marks include a fullstop / period, question mark or exclaimation point.
+      Punctuation marks include a fullstop / period, question mark or exclamation point.
       Ending characters include a single quote, double quote, close parenthesis or close square brace.</p>
     <p>This rule allows the parser to properly identify sentences which contain initials like "H. L. Mencken".
       Ending a line in the middle of such a name could confuse the parser, so the author SHOULD ensure such a sequence occurs.</p>
