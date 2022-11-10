@@ -157,7 +157,7 @@ For example, here is the content model of the previous example rendered as a JSO
    || }
 
 There's no reason the content model couldn't be rendered as XML, or ProtoBufs, or Avro or any other serialization format.
-But ``parser.js`` does not current support this feature.
+But ``parser.js`` only supports JSON output.
 
 :: The Quiet Text Document Model
 
