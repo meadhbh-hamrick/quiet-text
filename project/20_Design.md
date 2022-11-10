@@ -1,5 +1,7 @@
 <h1>Quiet Text Tool Design Notes</h1>
 
+<p><strong>From</strong> <a href="./20_Design.tqt">20_Design.tqt</a></p>
+
 <p class="abstract">
 
   Abstract:
