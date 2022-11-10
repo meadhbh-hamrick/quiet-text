@@ -253,7 +253,7 @@ absence of the Oxford Comma.</pre>
       Blocks can be <em>Paragraph Blocks</em>, <em>Section Blocks</em>, <em>Preformatted Blocks</em>, <em>List Blocks</em>, <em>Quote Blocks</em>, <em>Inclusion Blocks</em> or <em>Metadata Blocks</em>.</p>
     <p>Here is an example of a section block, a metadata block and four paragraph blocks:</p>
     <pre>:: Is Email Dead?
-\;\; Updated -- 2022-11-10T07:29:00-0800
+;; Updated -- 2022-11-10T07:29:00-0800
    It was a rainy night; cold too.  I got the call from
 the 5th precinct.  Another protocol had taken the long
 trip to nowheres-ville.
@@ -276,5 +276,30 @@ loud.  Damn if it wasn't Mr. Killer-App himself: EMail.</pre>
       And the subsequent lines in each paragraph are all un-indented (i.e. - they have an indentation level of 0.)
       This is sufficient for the parser to recognize they're different blocks.
       Other examples in this document will show paragraphs where each line is non-indented, but paragraphs are separated by blank lines.</p></li>
+
+  <li><p>By convention, if the first line of a document is a paragraph, that paragraph represents the title of the document.
+      A document that starts with a blank line has no title.</p>
+    <p>Metadata following the title (or blank first line) but before any non-metadata block, represents <em>Document Metadata</em> and applies to the document, not to any of it's components.</p>
+    <p>In this example we have a title, two metadata blocks and three paragraphs.</p>
+    <pre>Joe and the King
+
+;; Author -- Meadhbh Hamrick
+;; Copyright Date -- 2011
+
+"Be careful Joe," she said, "The King is the craftiest
+ring-writer this side of Yakima."
+
+"I know, I know," Joe replied, irritated.  He knew the
+king's reputation.  In the writing arena, few could
+contend with his prowess.
+
+Just then Joe's writing partner Carl pushed through the
+crowd to give him a few pearls of last minute wisdom.
+"Don't engage him with plot.  I've seen him weave
+complications a fifth year philosophy student couldn't
+figure out."  Carl meant well, but another distraction
+was the last thing Joe needed at the moment.</pre>
+    <p>In this example, we know the title of the document is "Joe and the King".
+      If we were to render a copyright notice, it would look like <em>Copyright (c) 2011, Meadhbh Hamrick. All Rights Reserved</em>.</p></li>
 
 </ol>
