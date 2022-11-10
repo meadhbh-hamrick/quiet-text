@@ -244,6 +244,8 @@ absence of the Oxford Comma.</pre>
       A line contains optional spaces, an optional marker, more optional spaces, optional text content and a newline sequence.
       A line with just a newline sequence is called a <em>Blank Line</em>.
       Here is a sample line:</p>
-      <pre>:: Section 4: Odysseus and the Lotus Eaters</pre></li>
+      <pre>:: Section 4: Odysseus and the Lotus Eaters</pre>
+      <p>It contains a few spaces at the beginning, a section marker (::), another
+      space, some text and (presumably) a newline at the end.</p></li>
 
 </ol>
