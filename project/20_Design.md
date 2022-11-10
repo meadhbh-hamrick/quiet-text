@@ -239,12 +239,21 @@ absence of the Oxford Comma.</pre>
 </p>
 
 <ol>
+
   <li>
+
     <p>
+
       test item
+
     </p>
+
     <p>
+
       second test item
+
     </p>
+
   </li>
+
 </ol>
