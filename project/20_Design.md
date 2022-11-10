@@ -242,6 +242,54 @@ absence of the Oxford Comma.</pre>
 
   <li>
 
+    <p>
+
+      Test Paragraph
+
+    </p>
+
+  </li>
+
+  <li>
+
+    <pre>Test preformatted block</pre>
+
+  </li>
+
+  <li>
+
+    <pre>
+Second Test preformatted block
+    </pre>
+
+  </li>
+    
+  <li>
+
+    <p>
+
+      Another Test Paragraph
+
+    </p>
+    
+    <pre>Third Test preformatted block</pre>
+
+  </li>
+
+  <li>
+
+    <p>
+
+      Yet Another Test Paragraph
+
+    </p>
+    
+    <pre>Fourth Test preformatted block</pre>
+
+  </li>
+
+  <li>
+
       All documents are made of a series of <em>Lines</em>.
       A line contains optional spaces, an optional marker, more optional spaces, optional text content and a newline sequence.
       A line with just a newline sequence is called a <em>Blank Line</em>.
