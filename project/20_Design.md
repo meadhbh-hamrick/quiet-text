@@ -308,15 +308,15 @@ was the last thing Joe needed at the moment.</pre>
     <pre>:: References
 
 Bush, Vannevar (1945). "As We May Think," //Atlantic
-   Monthly, July 1945//
+&nbsp;&nbsp;&nbsp;Monthly, July 1945//
 
 Bush, Vannevar (1991). "Memex Revisited," //From Memex to
-   hypertext: Vannevar Bush and the Mind's Machine//,
-   197-216
+&nbsp;&nbsp;&nbsp;hypertext: Vannevar Bush and the Mind's Machine//,
+&nbsp;&nbsp;&nbsp;197-216
 
 J. Johnson //et al.// (1989). "The Xerox Star: a
-   retrospective," in //Computer//, vol. 22, no. 9,
-   pp. 11-26, Sept. 1989, doi: 10.1109/2.35211.</pre></li>
+&nbsp;&nbsp;&nbsp;retrospective," in //Computer//, vol. 22, no. 9,
+&nbsp;&nbsp;&nbsp;pp. 11-26, Sept. 1989, doi: 10.1109/2.35211.</pre></li>
 
   <li><p>All lines in a paragraph, except the first, MUST share the same indention.
       As seen in the examples, the first line may be indented less, the same or more than subsequent lines.
@@ -333,7 +333,7 @@ holes after the next event loop."</pre>
     <pre>   "Gecko, you have a right to know. Franky, we have reports..."
 &nbsp;
 
-   "Gecko," the colonel started.  "This damned campaign has
+&nbsp;&nbsp;&nbsp;"Gecko," the colonel started.  "This damned campaign has
 flipped over to quirks mode and reports are the border:
 just turned red.  General staff fears it'll be dotted with
 holes after the next event loop."</pre></li>
