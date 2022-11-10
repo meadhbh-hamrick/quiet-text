@@ -4,6 +4,8 @@ Abstract:
 This document describes the design of the package's software components.
 We describe the lexxer and parser libraries and the warp and weft tools.
 
+//Portions of this document are Copyright (c) 2011, Meadhbh Hamrick. Used with permission of the author.//
+
 :: Introduction
 
 All software components here are written in JavaScript.
@@ -13,64 +15,312 @@ We expect users to include this package as a dependency in a package.json file a
 
 The components are related to each other like this:
 
-<< ./20_1_Component_Relation.png >>
-;; Image -- Relationship Between Components
+   << ./20_1_Component_Relation.png >>
+   ;; Image -- Relationship Between Components
 
-** ``Warp`` is dependent on ``parser.js``
-** ``Parser.js`` is dependent on ``lexxer.js``
-** ``Weft`` is not dependent on either ``parser.js`` or ``lexxer.js``
+   ** ``Warp`` is dependent on ``parser.js``
+
+   ** ``Parser.js`` is dependent on ``lexxer.js``
+
+   ** ``Weft`` is not dependent on either ``parser.js`` or ``lexxer.js``
 
 But the expected data-flow is this:
 
-<< ./20_2_Data_Flow.png >>
-;; Image -- Expected Data Flow
+   << ./20_2_Data_Flow.png >>
+   ;; Image -- Expected Data Flow
 
-## ``Warp`` converts a Quiet Text compliant text file into a Quiet Document Model (most likely represented as a JSON object.)
-## ``Weft`` uses the Quiet Document Model output from ``Warp`` and a //Handlebars// compatible template to convert the model into a HTML file (or HTML fragment).
+   ## ``Warp`` converts a Quiet Text compliant text file into a Quiet Document Model (most likely represented as a JSON object.)
+
+   ## ``Weft`` uses the Quiet Document Model output from ``Warp`` and a //Handlebars// compatible template to convert the model into a HTML file (or HTML fragment).
 
 :: lexxer.js
 
-``Lexxer.js`` is a package which scans input quite text, looking for //lexically significant character sequences//.
+``Lexxer.js`` is a package which scans input quiet text, looking for //lexically significant character sequences//.
 This usually means things like newlines at the ends of lines and blanks at the beginnings of lines.
 To simplify the parser, the lexxer also groups lines of non-markup text as //text// symbols.
 
 For example, it would convert this text:
 
-|| Sample Document
-||
-||    In the history of all sample documents, this must
-|| be the sampelest of them all.  Behold the exemplary
-|| exampleness of it's text.  Marvel at the descriptive
-|| mundanity of it's punctuation.
-||
-||    Gasp at the author's bold use of two spaces after a
-|| period. And witness, my dear friends, the complete
-|| absence of the Oxford Comma.
+   || Sample Document
+   ||
+   ||    In the history of all sample documents, this must
+   || be the sampelest of them all.  Behold the exemplary
+   || exampleness of it's text.  Marvel at the descriptive
+   || mundanity of it's punctuation.
+   ||
+   ||    Gasp at the author's bold use of two spaces after a
+   || period. And witness, my dear friends, the complete
+   || absence of the Oxford Comma.
 
 Into a sequence of //events// like this:
 
-## Text "Sample Document"
-## StartOfLine
-## StartOfLine
-## Indent 3
-## Text "In the history of all sample documents, this
-   must"
-## StartOfLine
-## Text "be the sampelest of them all.  Behold the
-   exemplary"
-## StartOfLine
-## Text "exampleness of it's text.  Marvel at the
-   descriptive"
-## StartOfLine
-## Text "mundanity of it's punctuation."
-## StartOfLine
-## StartOfLine
-## Indent 3
-## Text "Gasp at the author's bold use of two spaces
-   after a"
-## StartOfLine
-## Text "period. And witness, my dear friends, the
-   complete"
-## StartOfLine
-## Text "absence of the Oxford Comma."
-## StartOfLine
+   ## Text "Sample Document"
+
+   ## StartOfLine
+
+   ## StartOfLine
+
+   ## Indent 3
+
+   ## Text "In the history of all sample documents, this must"
+
+   ## StartOfLine
+
+   ## Text "be the sampelest of them all.  Behold the exemplary"
+
+   ## StartOfLine
+
+   ## Text "exampleness of it's text.  Marvel at the descriptive"
+
+   ## StartOfLine
+
+   ## Text "mundanity of it's punctuation."
+
+   ## StartOfLine
+
+   ## StartOfLine
+
+   ## Indent 3
+
+   ## Text "Gasp at the author's bold use of two spaces after a"
+
+   ## StartOfLine
+
+   ## Text "period. And witness, my dear friends, the complete"
+
+   ## StartOfLine
+
+   ## Text "absence of the Oxford Comma."
+
+   ## StartOfLine
+
+A few things to take away from this:
+
+  ## Documents !! don't !! start with StartOfLine event.
+
+  ## Documents end with a StartOfLine event to represent the notional blank line at the end of a document (even if the file doesn't end with a newline character.)
+
+  ## Empty Text lines don't cause a Text event to be emitted.
+
+:: parser.js
+
+``Parser.js`` receives the events emitted from ``lexxer.js`` and converts them into a //Content Model//.
+It's useful to understand Quiet Text input to the lexxer uses the //Quiet Text Document Model// while output from the parser implements the //Quiet Text Content Model//.
+The two are related but not the same.
+The document model represents the format of the input Quiet Text model while the parser's content model is an abstract description of the content of the document model.
+
+For example, here is the content model of the previous example rendered as a JSON object:
+
+   || {
+   ||   "type": "document",
+   ||   "meta": {
+   ||     "title": "Sample Document"
+   ||   },
+   ||   "content": [
+   ||     {
+   ||       "type": "paragraph",
+   ||       "meta": {
+   ||         "name": "/1"
+   ||       },
+   ||       "content": [
+   ||         {
+   ||           "type": "sentence",
+   ||           "content": "In the history of all sample documents, this must be the sampelest of them all."
+   ||         },
+   ||         {
+   ||           "type": "sentence",
+   ||           "content": "Behold the exemplary exampleness of it's text."
+   ||         },
+   ||         {
+   ||           "type": "sentence",
+   ||           "content": "Marvel at the descriptive mundanity of it's punctuation."
+   ||         }
+   ||       ]
+   ||     },
+   ||     {
+   ||       "type": "paragraph",
+   ||       "meta": {
+   ||         "name": "/2"
+   ||       },
+   ||       "content": [
+   ||         {
+   ||           "type": "sentence",
+   ||           "content": "Gasp at the author's bold use of two spaces after a period."
+   ||         },
+   ||         {
+   ||           "type": "sentence",
+   ||           "content": "And witness, my dear friends, the complete absence of the Oxford Comma."
+   ||         }
+   ||       ]
+   ||     }
+   ||   ]
+   || }
+
+There's no reason the content model couldn't be rendered as XML, or ProtoBufs, or Avro or any other serialization format.
+But ``parser.js`` does not current support this feature.
+
+:: The Quiet Text Document Model
+
+Quiet Text assumes all documents can be represented with this model:
+
+   ## All documents are made of a series of //Lines//.
+      A line contains optional spaces, an optional marker, more optional spaces, optional text content and a newline sequence.
+      A line with just a newline sequence is called a //Blank Line//.
+      Here is a sample line:
+
+      ||   :: Section 4: Odysseus and the Lotus Eaters
+
+      It contains a few spaces at the beginning, a section marker (::), another
+      space, some text and (presumably) a newline at the end.
+
+   ## Lines group together to form //Blocks//.
+      Blocks are separated from one another using one or more blank lines or by a block marker.
+      Blocks can be //Paragraph Blocks//, //Section Blocks//, //Preformatted Blocks//, //List Blocks//, //Quote Blocks//, //Inclusion Blocks// or //Metadata Blocks//.
+
+      Here is an example of a section block, a metadata block and four paragraph blocks:
+
+      || :: Is Email Dead?
+      || ;; Updated -- 2022-11-10T07:29:00-0800
+      ||    It was a rainy night; cold too.  I got the call from
+      || the 5th precinct.  Another protocol had taken the long
+      || trip to nowheres-ville.
+      ||    "Whadda we got here, Charlie?" I asked O'Malley, the
+      || flatfoot in charge of keeping the press hounds at bay.
+      ||    "Not sure, sir" he mewled back.  Something was wrong.
+      || O'Malley was shaken up. He was a good cop; something was
+      || definitely wrong.
+      ||    "Okay, let's take a look at the corpse."  O'Malley
+      || took a deep breath and lifted up the sheet.  I gasped out
+      || loud.  Damn if it wasn't Mr. Killer-App himself: EMail.
+
+      The section block starts with a double colon (::).
+      The text following it is interpreted to be a section title.
+      Section titles //can// be more than one line using indentation rules described below.
+
+      The metadata block starts with a double semi-colon (;;).
+      The text following it is interpreted as a metadata key/value pair.
+      In this example, it tells us the time the section was last updated.
+      We recognize that the metadata marker denotes a new section because it's marker is different from the previous block's marker.
+
+      The first line in each of the paragraphs in this example are indented by three spaces.
+      And the subsequent lines in each paragraph are all un-indented (i.e. - they have an indentation level of 0.)
+      This is sufficient for the parser to recognize they're different blocks.
+      Other examples in this document will show paragraphs where each line is non-indented, but paragraphs are separated by blank lines.
+
+   ## By convention, if the first line of a document is a paragraph, that paragraph represents the title of the document.
+      A document that starts with a blank line has no title.
+
+      Metadata following the title (or blank first line) but before any non-metadata block, represents //Document Metadata// and applies to the document, not to any of it's components.
+
+      In this example we have a title, two metadata blocks and three paragraphs.
+
+      || Joe and the King
+      ||
+      || ;; Author -- Meadhbh Hamrick
+      || ;; Copyright Date -- 2011
+      ||
+      || "Be careful Joe," she said, "The King is the craftiest
+      || ring-writer this side of Yakima."
+      ||
+      || "I know, I know," Joe replied, irritated.  He knew the
+      || king's reputation.  In the writing arena, few could
+      || contend with his prowess.
+      ||
+      || Just then Joe's writing partner Carl pushed through the
+      || crowd to give him a few pearls of last minute wisdom.
+      || "Don't engage him with plot.  I've seen him weave
+      || complications a fifth year philosophy student couldn't
+      || figure out."  Carl meant well, but another distraction
+      || was the last thing Joe needed at the moment.
+
+      In this example, we know the title of the document is "Joe and the King".
+      If we were to render a copyright notice, it would look like //Copyright (c) 2011, Meadhbh Hamrick. All Rights Reserved//.
+
+   ## Paragraph blocks may also feature //Hanging Indents//.
+      This is where the first line of the paragraph is indented less than subsequent lines.
+      This is encountered in legal documents and reference lists.
+
+      || :: References
+      ||
+      || Bush, Vannevar (1945). "As We May Think," //Atlantic
+      ||    Monthly, July 1945//
+      ||
+      || Bush, Vannevar (1991). "Memex Revisited," //From Memex to
+      ||    hypertext: Vannevar Bush and the Mind's Machine//,
+      ||    197-216
+      ||
+      || J. Johnson //et al.// (1989). "The Xerox Star: a
+      ||    retrospective," in //Computer//, vol. 22, no. 9,
+      ||    pp. 11-26, Sept. 1989, doi: 10.1109/2.35211.
+
+   ## All lines in a paragraph, except the first, MUST share the same indention.
+      As seen in the examples, the first line may be indented less, the same or more than subsequent lines.
+      Where it is ambiguous, the author must separate paragraphs with blank lines.
+
+      In this example, we see two paragraphs, but it's ambiguous which lines are in which paragraph:
+
+      ||    "Gecko, you have a right to know. Franky, we have reports..."
+      ||    "Gecko," the colonel started.  "This damned campaign has
+      || flipped over to quirks mode and reports are the border:
+      || just turned red.  General staff fears it'll be dotted with
+      || holes after the next event loop."
+
+      This //could// be two paragraphs, the first where all lines are indented by three characters and the second has no indentation.
+
+      Or it //could// be two paragraphs, the first line in each indented by three characters.
+
+      The author MUST place a blank line between the two to remove the ambiguity:
+
+      ||    "Gecko, you have a right to know. Franky, we have reports..."
+      ||
+      ||    "Gecko," the colonel started.  "This damned campaign has
+      || flipped over to quirks mode and reports are the border:
+      || just turned red.  General staff fears it'll be dotted with
+      || holes after the next event loop."
+
+   ## Paragraphs MAY be thought of as a collection of sentences.
+      Sentences are often separated by a period and two spaces or a period and a newline.
+
+      But sometimes sentences end with single quotes, double quotes, parentheses, square braces, a question mark or an exclaimation point.
+      So the rule for ending a sentence is: a punctuation mark, an option ending character and then either two lines or a newline.
+      Punctuation marks include a fullstop / period, question mark or exclaimation point.
+      Ending characters include a single quote, double quote, close parenthesis or close square brace.
+
+      This rule allows the parser to properly identify sentences which contain initials like "H. L. Mencken".
+      Ending a line in the middle of such a name could confuse the parser, so the author SHOULD ensure such a sequence occurs.
+
+      || There is an experimental music ensemble in Dallas called
+      || "BL Lacerta."  I once incorrectly thought it was "B. L.
+      || Lacerta."
+      ||
+      || If we did not have the "two periods after punctuation"
+      || rule, the parser might think we were generating several
+      || sentences when writing about H. L. Mencken.  But this
+      || paragraph only contains two sentences, not four.
+
+      The first paragraph in this example incorrectly ends a line in the middle of the name "B. L. Lacerta."
+      The parser will believe there are three sentences in that paragraph, not two.
+      The author SHOULD reformat the text so it is unambiguous:
+
+      || There is an experimental music ensemble in Dallas called
+      || "BL Lacerta."  I once incorrectly thought it was
+      || "B. L. Lacerta."
+
+      Or:
+
+      || There is an experimental music ensemble in Dallas called
+      || "BL Lacerta."  I once incorrectly thought it was "B. L. Lacerta."
+
+      The use of sentences is completely optional.
+      If you don't follow the "punctuation and two spaces" rule, the parser will create paragraphs it thinks are made of one long sentence (unless you happen to end a line with a punctuation mark.)
+
+      Sentences are used to reformat documents prior to checking into version control and after checking out of version control.
+      Modern version control systems like Git and Mercurial produce "diffs" which are significantly more "human readable" when each sentence is on a single line of text.
+
+   ## The document and all blocks have //Content// and //Metadata//.
+      The content of blocks is the same as document content: paragraphs, preformatted blocks, sections and lists.
+      All blocks have //Name Metadata//, but most blocks' names will be implicitly generated based on their position in the text.
+
+   ## Documents or blocks may have any bit of metadata, but some metadata does not make sense in each context.
+      Document metadata includes //Name//, //Title//, //Author//, //Creation Date//, //Modification Date//, //Copyright//, //Publisher//, //License//, //Abstract//, etc.
+      Block metadata includes //Class//.
