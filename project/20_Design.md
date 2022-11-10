@@ -282,17 +282,17 @@ loud.  Damn if it wasn't Mr. Killer-App himself: EMail.</pre>
     <p>Metadata following the title (or blank first line) but before any non-metadata block, represents <em>Document Metadata</em> and applies to the document, not to any of it's components.</p>
     <p>In this example we have a title, two metadata blocks and three paragraphs.</p>
     <pre>Joe and the King
-
+&nbsp;
 ;; Author -- Meadhbh Hamrick
 ;; Copyright Date -- 2011
-
+&nbsp;
 "Be careful Joe," she said, "The King is the craftiest
 ring-writer this side of Yakima."
-
+&nbsp;
 "I know, I know," Joe replied, irritated.  He knew the
 king's reputation.  In the writing arena, few could
 contend with his prowess.
-
+&nbsp;
 Just then Joe's writing partner Carl pushed through the
 crowd to give him a few pearls of last minute wisdom.
 "Don't engage him with plot.  I've seen him weave
@@ -306,7 +306,7 @@ was the last thing Joe needed at the moment.</pre>
       This is where the first line of the paragraph is indented less than subsequent lines.
       This is encountered in legal documents and reference lists.</p>
     <pre>:: References
-
+&nbsp;
 Bush, Vannevar (1945). "As We May Think," //Atlantic
 &nbsp;&nbsp;&nbsp;Monthly, July 1945//
 
@@ -349,7 +349,7 @@ holes after the next event loop."</pre></li>
     <pre>There is an experimental music ensemble in Dallas called
 "BL Lacerta."  I once incorrectly thought it was "B. L.
 Lacerta."
-
+&nbsp;
 If we did not have the "two periods after punctuation"
 rule, the parser might think we were generating several
 sentences when writing about H. L. Mencken.  But this
