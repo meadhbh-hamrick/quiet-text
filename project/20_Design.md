@@ -243,5 +243,8 @@ absence of the Oxford Comma.</pre>
     <p>
       test item
     </p>
+    <p>
+      second test item
+    </p>
   </li>
 </ol>
