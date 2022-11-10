@@ -331,6 +331,7 @@ holes after the next event loop."</pre>
     <p>Or it <em>could</em> be two paragraphs, the first line in each indented by three characters.</p>
     <p>The author MUST place a blank line between the two to remove the ambiguity:</p>
     <pre>   "Gecko, you have a right to know. Franky, we have reports..."
+&nbsp;
 
    "Gecko," the colonel started.  "This damned campaign has
 flipped over to quirks mode and reports are the border:
