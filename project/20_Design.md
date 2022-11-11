@@ -552,7 +552,7 @@ This section is a peer (at the same level) as the
       This also means metadata blocks may span multiple lines, assuming the first non-space, non-marker character is in the same row as the line above it.</p>
     <pre>A Very Important Document
 &nbsp;
-;; Author   == Famous Scientist <famous@example.com>
+;; Author   == Famous Scientist &lt;famous@example.com&gt;
 ;; Abstract == In this paper we propose a simple
    answer to every problem currently vexxing mankind.
 &nbsp;
@@ -571,8 +571,8 @@ This is a long paper, so we need a lot of review...</pre></li>
 &nbsp;&nbsp;&nbsp;column (or a later column) as text in previous
 &nbsp;&nbsp;&nbsp;lines.
 &nbsp;
-&nbsp;&nbsp;&nbsp;It is totally cool to indent a paragraph in a
-&nbsp;&nbsp;&nbsp;list item.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It is totally cool to indent a paragraph in a
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;list item.
 &nbsp;
 2. Embedding lists within lists is acceptable.  Here
 &nbsp;&nbsp;&nbsp;is an unordered list embedded in this ordered list.
