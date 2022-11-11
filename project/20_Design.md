@@ -306,11 +306,11 @@ was the last thing Joe needed at the moment.</pre>
     <p>There is no explicit list of canonical metadata keys, but the following metadata keys are common: Name, Title, Author, Created, Updated, Copyright, Publisher, License, Caption and Abstract.
       The <em>Name</em> metatdata key sets an explicit name for the block which the weft tool uses to create a HTML anchor (fragment target).</li>
 
-  <li><p>Quiet Text also recognizes a few //Metadata Prefixes//.
+  <li><p>Quiet Text also recognizes a few <em>Metadata Prefixes</em>.
       If, in the document metadata section at the top of the document, you include a paragraph that begins with "By ", the rest of the paragraph defines an Author's name.
       If you include a paragraph that begins with "Copyright (c)", it's assumed to define copyright metadata.
       Other prefixes include:</p>
-    <table>
+    <table style="width:100%">
       <thead>
         <tr>
           <th>Prefix</th>
@@ -473,5 +473,181 @@ divider.
 &nbsp;
 This section is a peer (at the same level) as the
 "3. Random Prose" section.</pre>
+
+  <li><p>Preformatted blocks are signaled using the <em>Preformatted Block Marker</em> (||).
+      If a line starts with the double-pipe preformatted block marker, it is a <em>Preformatted Line</em>.
+      Consecutive lines with a double-pipe marker with the same intentation level are part of the same preformatted block.
+      If there is a space after the preformatted block marker, it is ignored.</p>
+    <p>Metadata after a preformatted block is convenient to describe what is in the block:</p>
+    <pre>&#x7c;&#x7c; // loop.js
+&#x7c;&#x7c;
+&#x7c;&#x7c; for( let i = 0; i &lt; 10; i++ ) {
+&#x7c;&#x7c;   console.log( i );
+&#x7c;&#x7c; }
+&nbsp;
+&#x3b;&#x3b; Code     == A Simple Loop in JavaScript
+&#x3b;&#x3b; Language == text/javascript
+&nbsp;
+&#x7c;&#x7c; /* loop.c */
+&#x7c;&#x7c; #include &lt;stdio.h&gt;
+&#x7c;&#x7c;
+&#x7c;&#x7c; int main() {
+&#x7c;&#x7c;   int i;
+&#x7c;&#x7c;
+&#x7c;&#x7c;   for( i = 0; i &lt; 10; i++ ) {
+&#x7c;&#x7c;     printf( "%d\n", i );
+&#x7c;&#x7c;   }
+&#x7c;&#x7c;
+&#x7c;&#x7c;   return( 0 );
+&#x7c;&#x7c; }
+&nbsp;
+&#x3b;&#x3b; Code     == A Simple Loop in C
+&#x3b;&#x3b; Language == text/c
+&#x3b;&#x3b; Filename == loop.c</pre>
+  <p>This block shows a sample loop in javascript and then again in C.
+    Both blocks have metadata attached to them.
+    The second block has sufficient metadata that a program could extract the program text and save it in the <code>loop.c</code> file.</p>
+  <p>Preformatted blocks are an exception to the normal <em>Block Memory</em> rule.
+    Lines in every other type of block will remember what type of block they are in, even if there is no block marker at the beginning of the line.
+    Lines in preformatted blocks MUST start with a preformatted block marker (||).</p></li>
+
+  <li><p>Quote blocks begin and end with a <em>Quote Marker</em> ("").
+      They represent a quotation and are often followed by an attribution.
+      Quote blocks MAY end with a trailing quote marker, but this is not required.
+      Quote markers that aren't the first non-blank characters on a line should be considered text (unless they're in a quote block and are the last characters in the block.)</p>
+    <p>Consider these quotes:</p>
+    <pre>"" For every complex problem there is an answer that is
+&nbsp;&nbsp;&nbsp;clear, simple and wrong. ""
+&nbsp;
+-- H. L. Mencken</pre>
+  <p>or</p>
+  <pre>"" Any darn fool can make something complex; it takes a
+&nbsp;&nbsp;&nbsp;genius to make something simple.
+&nbsp;
+-- Albert Einstein</pre></li>
+
+  <li><p>Inclusion blocks reference another resource to add to this text.
+      They're denoted by opening and closing inclusion markers (<<) and (>>).
+      The closing inclusion marker is optional.
+      A metadata block following the inclusion will assist the reader in understanding the context.</p>
+
+      <pre>&lt;&lt; ./vacation.png &gt;&gt;
+;; image == A picture from last year's vacation
+&nbsp;
+&lt;&lt; data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAA
+   AABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQAB &gt;&gt;
+;; image  == a single, transparent pixel
+;; origin == https://github.com/mathiasbynens/small
+&nbsp;
+&lt;&lt; https://youtu.be/dQw4w9WgXcQ &gt;&gt;
+;; video == How to Pick Winning Lotto Numbers</pre>
+  <p>Quiet Text itself doesn't care how inclusions are rendered.
+    They are there simply as references.
+    The <code>weft</code> HTML renderer renders images in an IMG tag and links starting with <code>https://youtu.be/</code> as IFRAMEs pointing to youtube videos.</p></li>
+
+  <li><p>Metadata blocks are signfied by the <em>Metadata Block Marker</em> (;;).
+      Metadata blocks SHOULD contain a key and a value separated by a double-equals digraph (==).
+      Metadata keys are case insensitive.
+      Leading and trailing whitespace will be trimmed from both the key and the value.</p>
+
+    <p>Metadata blocks adhere to the block memory rule, so each metadata item should be in it's own block.
+      This also means metadata blocks may span multiple lines, assuming the first non-space, non-marker character is in the same row as the line above it.</p>
+    <pre>A Very Important Document
+&nbsp;
+;; Author   == Famous Scientist <famous@example.com>
+;; Abstract == In this paper we propose a simple
+   answer to every problem currently vexxing mankind.
+&nbsp;
+:: Background
+&nbsp;
+This is a long paper, so we need a lot of review...</pre></li>
+
+  <li><p>List blocks contain lists and are denoted by an <em>Ordered List Marker</em> (##) or an <em>Unordered List Marker</em> (**).
+      Ordered List items can also be denoted by a number followed by a period.
+      They follow the block memory rule, so list contents may span multiple lines by ensuring text on subsequent lines starts in the same column as the previous line.
+      List items may contain any block type, including other lists.</li>
+    <pre>1. This is the first item in a numbered list.
+&nbsp;
+&nbsp;&nbsp;&nbsp;Lists can contain additional paragraphs, if the
+&nbsp;&nbsp;&nbsp;text in subsequent paragraphs begins in the same
+&nbsp;&nbsp;&nbsp;column (or a later column) as text in previous
+&nbsp;&nbsp;&nbsp;lines.
+&nbsp;
+&nbsp;&nbsp;&nbsp;It is totally cool to indent a paragraph in a
+&nbsp;&nbsp;&nbsp;list item.
+&nbsp;
+2. Embedding lists within lists is acceptable.  Here
+&nbsp;&nbsp;&nbsp;is an unordered list embedded in this ordered list.
+&nbsp;&nbsp;&nbsp;** Hello
+&nbsp;&nbsp;&nbsp;** Doctor
+&nbsp;&nbsp;&nbsp;** Yesterday
+&nbsp;&nbsp;&nbsp;** Tomorrow
+&nbsp;
+3. Inserting a blank line between list elements looks
+&nbsp;&nbsp;&nbsp;nicer, but it's not a requirement.
+&nbsp;
+## Double-octothorps denote an ordered list item.  If
+&nbsp;&nbsp;&nbsp;this text is consumed by a HTML renderer, it
+&nbsp;&nbsp;&nbsp;SHOULD make this just another item.
+&nbsp;
+## The next item contains a preformatted block.
+&nbsp;
+## || This is a preformatted block in a list.
+&nbsp;&nbsp;&nbsp;||
+&nbsp;&nbsp;&nbsp;|| It's just an example of how you would do that.</pre></li>
+
+  <li><p>Markers for inline markup include:</p>
+    <ul><li>// &mdash; Emphesized Text</li>
+      <li>!! &mdash; Strong Text</li>
+      <li>__ &mdash; Underlined Text</li>
+      <li>^^ &mdash; Superscripted Text</li></ul>
+    <pre>I can understand using //italics// from time to time.
+Or maybe even __underlining__ pertinent text.  But
+do we have to support !!BOLD TEXT!!?</pre></li>
+
+  <li><p>The Double-backslash marker (\\) can be used before any other marker cause it to be rendered instead of interpreted as a marker.
+      Four backslashes in a row escape the escape and cause a double-backslash to be rendered.</p></li>
+
+  <li><p>References (links) are included within <em>Reference Start</em> ([[) and <em>Reference End</em> (]]) markers.
+      References are most likely going to be rendered in HTML as a link, so to add link text include a double-equals digraph (==).
+      Text before the double-equals digraph is link text, while text after the double-equals is the link itself.</p></li>
+
+  <li><em>Reference Anchors Lists</em> are lists of reference targets.
+      The text between the <em>Reference Anchor Marker</em> (@@) and the double-equals digraph (==) is the anchor name.
+      This is the name it will be referenced by in the document.
+      The text afer the double-equals digraph is the reference itself.</p>
+    <p>Here is a contrived example in which three academic papers are referenced in the text of the document.
+      We're using numeric reference names in this example, but references can be any alphanumeric sequence.
+      <em>Illegal</em> characters are removed from reference names when they are constructed, so you can create references with spaces or punctuation marks, they just won't be used to construct the actual name.</p>
+    <pre>Three references I recommend include one which revals
+the relation of place with notions of design which
+transcend the target media [[ # 001 ]], one which
+highlights the importance of position as an aspect of
+Computer/Human Interaction [[ # 002 ]] and another
+which highlights the personal nature of the personal
+computer [[ # 003 ]].
+&nbsp;
+:: References
+&nbsp;
+@@ 001 == Alexander, Christopher. "A city is not a
+&nbsp;&nbsp;&nbsp;tree." //The urban design reader//. Routledge,
+&nbsp;&nbsp;&nbsp;2013. 172-186.
+&nbsp;
+@@ 002 == Bolt, Richard A. "“Put-that-there” Voice and
+&nbsp;&nbsp;&nbsp;gesture at the graphics interface." //Proceedings
+&nbsp;&nbsp;&nbsp;of the 7th annual conference on Computer graphics
+&nbsp;&nbsp;&nbsp;and interactive techniques//. 1980.
+&nbsp;
+@@ 003 == Nelson, Theodor H. "Dream Machines: New
+&nbsp;&nbsp;&nbsp;Freedoms Through Computer Screens: A Minority
+&nbsp;&nbsp;&nbsp;Report." (1974).</pre>
+  <p>You can reference web sites by including a link in the reference text:</p>
+  <pre>Three websites I quite enjoy include DynamicLand [[ # DynamicLand ]],
+Bret Victor's WorryDream.Com [[ # WorryDream ]] and the Stanford HCI
+Group website [[ # Stanford HCI ]].
+&nbsp;
+@@ DynamicLand  == [[  https://dynamicland.org/   ]]
+@@ WorryDream   == [[  http://worrydream.com/     ]]
+@@ Stanford HCI == [[  https://hci.stanford.edu/  ]]</pre></li>
 
 </ol>

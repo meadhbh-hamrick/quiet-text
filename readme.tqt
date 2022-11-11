@@ -2,9 +2,9 @@ Quiet Text Information and Tools
 
 Copyright (c) 2022, Meadhbh Hamrick. All Rights Reserved.
 
-Documentation released under a CC-BY-NC-SA-4.0 license.
+Doc License: CC-BY-NC-SA-4.0
 
-Code released under a BSD-3-Clause license.
+Code License: BSD-3-Clause
 
    Text files rule.
    There are .doc files from 1997 that barf when I open them in Office 365.
@@ -13,7 +13,7 @@ Code released under a BSD-3-Clause license.
    I write text docs with a text editor and convert them to HTML or PDF only when I have to.
 
    Quiet Text is the set of conventions for identifying structure and style in ASCII or UTF-8 text files.
-   Warp and weft are JavaScript programs to convert quiet text files to HTML documents.
+   Warp and weft are JavaScript programs to convert quiet text into HTML documents.
 
    There is a small amount of markup in Quiet Text.
    But it isn't ugly like Markdown or Enriched Text.

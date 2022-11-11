@@ -16,7 +16,7 @@ We expect users to include this package as a dependency in a package.json file a
 The components are related to each other like this:
 
    << ./20_1_Component_Relation.png >>
-   ;; Image -- Relationship Between Components
+   ;; Image == Relationship Between Components
 
    ** ``Warp`` is dependent on ``parser.js``
 
@@ -27,7 +27,7 @@ The components are related to each other like this:
 But the expected data-flow is this:
 
    << ./20_2_Data_Flow.png >>
-   ;; Image -- Expected Data Flow
+   ;; Image == Expected Data Flow
 
    ## ``Warp`` converts a Quiet Text compliant text file into a Quiet Document Model (most likely represented as a JSON object.)
 
@@ -175,12 +175,12 @@ Quiet Text assumes all documents can be represented with this model:
 
    ## Lines group together to form //Blocks//.
       Blocks are separated from one another using one or more blank lines or by a block marker.
-      Blocks can be //Paragraph Blocks//, //Section Blocks//, //Preformatted Blocks//, //List Blocks//, //Quote Blocks//, //Inclusion Blocks// or //Metadata Blocks//.
+      Blocks can be //Paragraph Blocks//, //Section Blocks//, //Preformatted Blocks//, //Quote Blocks//, //Inclusion Blocks//, //List Blocks//, or //Metadata Blocks//.
 
       Here is an example of a section block, a metadata block and four paragraph blocks:
 
       || :: Is Email Dead?
-      || ;; Updated -- 2022-11-10T07:29:00-0800
+      || ;; Updated == 2022-11-10T07:29:00-0800
       ||    It was a rainy night; cold too.  I got the call from
       || the 5th precinct.  Another protocol had taken the long
       || trip to nowheres-ville.
@@ -216,8 +216,8 @@ Quiet Text assumes all documents can be represented with this model:
 
       || Joe and the King
       ||
-      || ;; Author -- Meadhbh Hamrick
-      || ;; Copyright Date -- 2011
+      || ;; Author == Meadhbh Hamrick
+      || ;; Copyright Date == 2011
       ||
       || "Be careful Joe," she said, "The King is the craftiest
       || ring-writer this side of Yakima."
@@ -403,3 +403,194 @@ Quiet Text assumes all documents can be represented with this model:
       ||
       || This section is a peer (at the same level) as the
       || "3. Random Prose" section.
+
+   ## Preformatted blocks are signaled using the //Preformatted Block Marker// (||).
+      If a line starts with the double-pipe preformatted block marker, it is a //Preformatted Line//.
+      Consecutive lines with a double-pipe marker with the same intentation level are part of the same preformatted block.
+      If there is a space after the preformatted block marker, it is ignored.
+
+      Metadata after a preformatted block is convenient to describe what is in the block:
+
+      || || // loop.js
+      || ||
+      || || for( let i = 0; i < 10; i++ ) {
+      || ||   console.log( i );
+      || || }
+      ||
+      || ;; Code     == A Simple Loop in JavaScript
+      || ;; Language == text/javascript
+      ||
+      || || /* loop.c */
+      || || #include <stdio.h>
+      || ||
+      || || int main() {
+      || ||   int i;
+      || ||
+      || ||   for( i = 0; i < 10; i++ ) {
+      || ||     printf( "%d\n", i );
+      || ||   }
+      || ||
+      || ||   return( 0 );
+      || || }
+      ||
+      || ;; Code     == A Simple Loop in C
+      || ;; Language == text/c
+      || ;; Filename == loop.c
+
+      This block shows a sample loop in javascript and then again in C.
+      Both blocks have metadata attached to them.
+      The second block has sufficient metadata that a program could extract the program text and save it in the ``loop.c`` file.
+
+      Preformatted blocks are an exception to the normal //Block Memory// rule.
+      Lines in every other type of block will remember what type of block they are in, even if there is no block marker at the beginning of the line.
+      Lines in preformatted blocks MUST start with a preformatted block marker (||).
+
+   ## Quote blocks begin and end with a //Quote Marker// ("").
+      They represent a quotation and are often followed by an attribution.
+      Quote blocks MAY end with a trailing quote marker, but this is not required.
+      Quote markers that aren't the first non-blank characters on a line should be considered text (unless they're in a quote block and are the last characters in the block.)
+
+      Consider these quotes:
+
+      || "" For every complex problem there is an answer that is
+      ||    clear, simple and wrong. ""
+      ||
+      || -- H. L. Mencken
+
+      or
+
+      || "" Any darn fool can make something complex; it takes a
+      ||    genius to make something simple.
+      ||
+      || -- Albert Einstein
+
+   ## Inclusion blocks reference another resource to add to this text.
+      They're denoted by opening and closing inclusion markers (<<) and (>>).
+      The closing inclusion marker is optional.
+      A metadata block following the inclusion will assist the reader in understanding the context.
+
+      || << ./vacation.png >>
+      || ;; image == A picture from last year's vacation
+      ||
+      || << data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAA
+      ||    AABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQAB >>
+      || ;; image  == a single, transparent pixel
+      || ;; origin == https://github.com/mathiasbynens/small
+      ||
+      || << https://youtu.be/dQw4w9WgXcQ >>
+      || ;; video == How to Pick Winning Lotto Numbers
+
+      Quiet Text itself doesn't care how inclusions are rendered.
+      They are there simply as references.
+      The ``weft`` HTML renderer renders images in an IMG tag and links starting with ``https://youtu.be/`` as IFRAMEs pointing to youtube videos.
+
+   ## Metadata blocks are signfied by the //Metadata Block Marker// (;;).
+      Metadata blocks SHOULD contain a key and a value separated by a double-equals digraph (==).
+      Metadata keys are case insensitive.
+      Leading and trailing whitespace will be trimmed from both the key and the value.
+
+      Metadata blocks adhere to the block memory rule, so each metadata item should be in it's own block.
+      This also means metadata blocks may span multiple lines, assuming the first non-space, non-marker character is in the same row as the line above it.
+
+      || A Very Important Document
+      ||
+      || ;; Author   == Famous Scientist <famous@example.com>
+      || ;; Abstract == In this paper we propose a simple
+      ||    answer to every problem currently vexxing mankind.
+      ||
+      || :: Background
+      ||
+      || This is a long paper, so we need a lot of review...
+
+   ## List blocks contain lists and are denoted by an //Ordered List Marker// (##) or an //Unordered List Marker// (**).
+      Ordered List items can also be denoted by a number followed by a period.
+      They follow the block memory rule, so list contents may span multiple lines by ensuring text on subsequent lines starts in the same column as the previous line.
+      List items may contain any block type, including other lists.
+
+      || 1. This is the first item in a numbered list.
+      ||
+      ||    Lists can contain additional paragraphs, if the
+      ||    text in subsequent paragraphs begins in the same
+      ||    column (or a later column) as text in previous
+      ||    lines.
+      ||
+      ||       It is totally cool to indent a paragraph in a
+      ||       list item.
+      ||
+      || 2. Embedding lists within lists is acceptable.  Here
+      ||    is an unordered list embedded in this ordered list.
+      ||    ** Hello
+      ||    ** Doctor
+      ||    ** Yesterday
+      ||    ** Tomorrow
+      || 3. Inserting a blank line between list elements looks
+      ||    nicer, but it's not a requirement.
+      ||
+      || ## Double-octothorps denote an ordered list item.  If
+      ||    this text is consumed by a HTML renderer, it
+      ||    SHOULD make this just another item.
+      ||
+      || ## The next item contains a preformatted block.
+      ||
+      || ## || This is a preformatted block in a list.
+      ||    || It's just an example of how you would do that.
+
+   ## Markers for inline markup include:
+
+      ** \\// -- Emphesized Text
+      ** \\!! -- Strong Text
+      ** \\__ -- Underlined Text
+      ** \\^^ -- Superscripted Text
+
+      || I can understand using //italics// from time to time.
+      || Or maybe even __underlining__ pertinent text.  But
+      || do we have to support !!BOLD TEXT!!?
+
+   ## The Double-backslash marker (\\\\) can be used before any other marker cause it to be rendered instead of interpreted as a marker.
+      Four backslashes in a row escape the escape and cause a double-backslash to be rendered.
+
+   ## References (links) are included within //Reference Start// (\\[[) and //Reference End// (\\]]) markers.
+      References are most likely going to be rendered in HTML as a link, so to add link text include a double-equals digraph (==).
+      Text before the double-equals digraph is link text, while text after the double-equals is the link itself.
+
+   ## //Reference Anchors Lists// are lists of reference targets.
+      The text between the //Reference Anchor Marker// (@@) and the double-equals digraph (==) is the anchor name.
+      This is the name it will be referenced by in the document.
+      The text afer the double-equals digraph is the reference itself.
+
+      Here is a contrived example in which three academic papers are referenced in the text of the document.
+      We're using numeric reference names in this example, but references can be any alphanumeric sequence.
+      //Illegal// characters are removed from reference names when they are constructed, so you can create references with spaces or punctuation marks, they just won't be used to construct the actual name.
+
+      || Three references I recommend include one which revals
+      || the relation of place with notions of design which
+      || transcend the target media [[ # 001 ]], one whichr
+      || highlights the importance of position as an aspect of
+      || Computer/Human Interaction [[ # 002 ]] and another
+      || which highlights the personal nature of the personal
+      || computer [[ # 003 ]].
+      ||
+      || :: References
+      ||
+      || @@ 001 == Alexander, Christopher. "A city is not a
+      ||    tree." //The urban design reader//. Routledge,
+      ||    2013. 172-186.
+      ||
+      || @@ 002 == Bolt, Richard A. "“Put-that-there” Voice and
+      ||    gesture at the graphics interface." //Proceedings
+      ||    of the 7th annual conference on Computer graphics
+      ||    and interactive techniques//. 1980.
+      ||
+      || @@ 003 == Nelson, Theodor H. "Dream Machines: New
+      ||    Freedoms Through Computer Screens: A Minority
+      ||    Report." (1974).
+
+      You can reference web sites by including a link in the reference text:
+
+      || Three websites I quite enjoy include DynamicLand [[ # DynamicLand ]],
+      || Bret Victor's WorryDream.Com [[ # WorryDream ]] and the Stanford HCI
+      || Group website [[ # Stanford HCI ]].
+      ||
+      || @@ DynamicLand  == [[  https://dynamicland.org/   ]]
+      || @@ WorryDream   == [[  http://worrydream.com/     ]]
+      || @@ Stanford HCI == [[  https://hci.stanford.edu/  ]]

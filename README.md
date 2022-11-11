@@ -18,7 +18,7 @@
 <p class="abstract">
 
   Quiet Text is the set of conventions for identifying structure and style in ASCII or UTF-8 text files.
-  Warp and weft are JavaScript programs to convert quiet text files to HTML documents.
+  Warp and weft are JavaScript programs to convert quiet text into HTML documents.
 
 </p>
     

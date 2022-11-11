@@ -37,14 +37,14 @@ If you use [[ #MarkDown ]] or [[ #DocBook ]] to build HTML or PDF documents, you
 
 :: References
 
-@@ QuietTextWebSite -- https://quiet.meadhbh.hamrick.rocks/
-@@ MarkDown -- https://daringfireball.net/projects/markdown/
-@@ DocBook -- https://docbook.org/
-@@ Atlassian -- https://www.atlassian.com/
-@@ JIRA -- https://www.atlassian.com/software/jira
-@@ Confluence -- https://www.atlassian.com/software/confluence
-@@ W3CPagedMedia -- https://www.w3.org/TR/css-page-3/
-@@ PrinceXML -- https://en.wikipedia.org/wiki/Prince_(software)
-@@ wkhtmltopdf -- https://wkhtmltopdf.org/
-@@ WeasyPrint -- https://weasyprint.org/
-@@ OtherFreeHTMLtoPDFUtilities -- https://alternativeto.net/software/prince-xml/
+@@ QuietTextWebSite == https://quiet.meadhbh.hamrick.rocks/
+@@ MarkDown == https://daringfireball.net/projects/markdown/
+@@ DocBook == https://docbook.org/
+@@ Atlassian == https://www.atlassian.com/
+@@ JIRA == https://www.atlassian.com/software/jira
+@@ Confluence == https://www.atlassian.com/software/confluence
+@@ W3CPagedMedia == https://www.w3.org/TR/css-page-3/
+@@ PrinceXML == https://en.wikipedia.org/wiki/Prince_(software)
+@@ wkhtmltopdf == https://wkhtmltopdf.org/
+@@ WeasyPrint == https://weasyprint.org/
+@@ OtherFreeHTMLtoPDFUtilities == https://alternativeto.net/software/prince-xml/
