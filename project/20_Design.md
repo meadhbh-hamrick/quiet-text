@@ -530,12 +530,11 @@ This section is a peer (at the same level) as the
       They're denoted by opening and closing inclusion markers (<<) and (>>).
       The closing inclusion marker is optional.
       A metadata block following the inclusion will assist the reader in understanding the context.</p>
-
-      <pre>&lt;&lt; ./vacation.png &gt;&gt;
+  <pre>&lt;&lt; ./vacation.png &gt;&gt;
 ;; image == A picture from last year's vacation
 &nbsp;
 &lt;&lt; data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAA
-   AABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQAB &gt;&gt;
+&nbsp;&nbsp;&nbsp;AABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQAB &gt;&gt;
 ;; image  == a single, transparent pixel
 ;; origin == https://github.com/mathiasbynens/small
 &nbsp;
@@ -549,7 +548,6 @@ This section is a peer (at the same level) as the
       Metadata blocks SHOULD contain a key and a value separated by a double-equals digraph (==).
       Metadata keys are case insensitive.
       Leading and trailing whitespace will be trimmed from both the key and the value.</p>
-
     <p>Metadata blocks adhere to the block memory rule, so each metadata item should be in it's own block.
       This also means metadata blocks may span multiple lines, assuming the first non-space, non-marker character is in the same row as the line above it.</p>
     <pre>A Very Important Document
