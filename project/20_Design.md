@@ -474,7 +474,7 @@ divider.
 This section is a peer (at the same level) as the
 "3. Random Prose" section.</pre>
 
-  <li><p>Preformatted blocks are signaled using the <em>Preformatted Block Marker</em> (||).
+  <li><p>Preformatted blocks are signaled using the <em>Preformatted Block Marker</em> (..).
       If a line starts with the double-pipe preformatted block marker, it is a <em>Preformatted Line</em>.
       Consecutive lines with a double-pipe marker with the same intentation level are part of the same preformatted block.
       If there is a space after the preformatted block marker, it is ignored.</p>
@@ -509,7 +509,7 @@ This section is a peer (at the same level) as the
     The second block has sufficient metadata that a program could extract the program text and save it in the <code>loop.c</code> file.</p>
   <p>Preformatted blocks are an exception to the normal <em>Block Memory</em> rule.
     Lines in every other type of block will remember what type of block they are in, even if there is no block marker at the beginning of the line.
-    Lines in preformatted blocks MUST start with a preformatted block marker (||).</p></li>
+    Lines in preformatted blocks MUST start with a preformatted block marker (..).</p></li>
 
   <li><p>Quote blocks begin and end with a <em>Quote Marker</em> ("").
       They represent a quotation and are often followed by an attribution.
@@ -590,9 +590,9 @@ This is a long paper, so we need a lot of review...</pre></li>
 &nbsp;
 ## The next item contains a preformatted block.
 &nbsp;
-## || This is a preformatted block in a list.
-&nbsp;&nbsp;&nbsp;||
-&nbsp;&nbsp;&nbsp;|| It's just an example of how you would do that.</pre></li>
+## .. This is a preformatted block in a list.
+&nbsp;&nbsp;&nbsp;..
+&nbsp;&nbsp;&nbsp;.. It's just an example of how you would do that.</pre></li>
 
   <li><p>Markers for inline markup include:</p>
     <ul><li>// &mdash; Emphesized Text</li>
