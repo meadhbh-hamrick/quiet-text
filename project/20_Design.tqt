@@ -244,16 +244,16 @@ Quiet Text assumes all documents can be represented with this model:
       If you include a paragraph that begins with "Copyright (c)", it's assumed to define copyright metadata.
       Other prefixes include:
 
-      +----------------+--------------------------------+
-      | Prefix         | Meaning                        |
-      +----------------+--------------------------------+
-      | By             | Author attribution             |
-      | Copyright (c)  | Copyright                      |
-      | Licensed under | License                        |
-      | Doc License:   | License only for documentation |
-      | Code License:  | License only for code          |
-      | Abstract:      | Document Abstract              |
-      +----------------+--------------------------------+
+      ++----------------++--------------------------------++
+      || Prefix         || Meaning                        ||
+      ++----------------++--------------------------------++
+      || By             || Author attribution             ||
+      || Copyright (c)  || Copyright                      ||
+      || Licensed under || License                        ||
+      || Doc License:   || License only for documentation ||
+      || Code License:  || License only for code          ||
+      || Abstract:      || Document Abstract              ||
+      ++----------------++--------------------------------++
 
    ## Paragraph blocks may also feature //Hanging Indents//.
       This is where the first line of the paragraph is indented less than subsequent lines.
@@ -533,8 +533,12 @@ Quiet Text assumes all documents can be represented with this model:
       ..
       .. ## The next item contains a preformatted block.
       ..
-      .. ## .. This is a preformatted block in a list.
-      ..    .. It's just an example of how you would do that.
+      .. ##
+      ..    .. This is a preformatted block in a list.
+      ..    .. Note that we don't put the preformatted marker
+      ..       on the same line as the list marker?  Putting
+      ..       two initial markers on the same line and
+      ..       expecting them to work is a recipe for grief.
 
    ## Markers for inline markup include:
 
@@ -595,3 +599,24 @@ Quiet Text assumes all documents can be represented with this model:
       .. @@ DynamicLand  == [[  https://dynamicland.org/   ]]
       .. @@ WorryDream   == [[  http://worrydream.com/     ]]
       .. @@ Stanford HCI == [[  https://hci.stanford.edu/  ]]
+
+   ## Tables use the //Table Corner Marker// (++) and the table //Table Edge Marker// (||).
+
+      .. ++------++--------------------------------------------++
+      .. || Year || Album I Listened To Way Too Much That Year ||
+      .. ++------++--------------------------------------------++
+      .. || 1977 || //'77//, Talking Heads                     ||
+      .. || 1978 || //Outlandos d'Amour//, The Police          ||
+      .. || 1979 || //Unknown Pleasures//, Joy Division        ||
+      .. || 1980 || //Wall of Voodoo//, Wall of Voodoo         ||
+      .. || 1981 || //More Specials//, The Specials            ||
+      .. || 1982 || //The Dreaming//, Kate Bush                ||
+      .. || 1983 || //Feline//, The Specials                   ||
+      .. || 1984 || //Hysteria//, Human League                 ||
+      .. || 1985 || //A Cappella//, Todd Rundgren              ||
+      .. || 1986 || //The Rainmakers//, The Rainmakers         ||
+      .. || 1987 || //Sign of the Times//, Prince              ||
+      .. || 1988 || //Life's Too Good//, The Sugarcubes        ||
+      .. || 1989 || //The Sensual World//, Kate Bush           ||
+      .. ++------++--------------------------------------------++
+      
