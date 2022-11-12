@@ -479,27 +479,27 @@ This section is a peer (at the same level) as the
       Consecutive lines with a double-pipe marker with the same intentation level are part of the same preformatted block.
       If there is a space after the preformatted block marker, it is ignored.</p>
     <p>Metadata after a preformatted block is convenient to describe what is in the block:</p>
-    <pre>&#x7c;&#x7c; // loop.js
-&#x7c;&#x7c;
-&#x7c;&#x7c; for( let i = 0; i &lt; 10; i++ ) {
-&#x7c;&#x7c;   console.log( i );
-&#x7c;&#x7c; }
+    <pre>&#x2e;&#x2e; // loop.js
+&#x2e;&#x2e;
+&#x2e;&#x2e; for( let i = 0; i &lt; 10; i++ ) {
+&#x2e;&#x2e;   console.log( i );
+&#x2e;&#x2e; }
 &nbsp;
 &#x3b;&#x3b; Code     == A Simple Loop in JavaScript
 &#x3b;&#x3b; Language == text/javascript
 &nbsp;
-&#x7c;&#x7c; /* loop.c */
-&#x7c;&#x7c; #include &lt;stdio.h&gt;
-&#x7c;&#x7c;
-&#x7c;&#x7c; int main() {
-&#x7c;&#x7c;   int i;
-&#x7c;&#x7c;
-&#x7c;&#x7c;   for( i = 0; i &lt; 10; i++ ) {
-&#x7c;&#x7c;     printf( "%d\n", i );
-&#x7c;&#x7c;   }
-&#x7c;&#x7c;
-&#x7c;&#x7c;   return( 0 );
-&#x7c;&#x7c; }
+&#x2e;&#x2e; /* loop.c */
+&#x2e;&#x2e; #include &lt;stdio.h&gt;
+&#x2e;&#x2e;
+&#x2e;&#x2e; int main() {
+&#x2e;&#x2e;   int i;
+&#x2e;&#x2e;
+&#x2e;&#x2e;   for( i = 0; i &lt; 10; i++ ) {
+&#x2e;&#x2e;     printf( "%d\n", i );
+&#x2e;&#x2e;   }
+&#x2e;&#x2e;
+&#x2e;&#x2e;   return( 0 );
+&#x2e;&#x2e; }
 &nbsp;
 &#x3b;&#x3b; Code     == A Simple Loop in C
 &#x3b;&#x3b; Language == text/c
