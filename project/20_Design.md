@@ -649,8 +649,27 @@ Group website [[ # Stanford HCI ]].
 @@ Stanford HCI == [[  https://hci.stanford.edu/  ]]</pre></li>
 
   <li><p>Tables use the <em>Table Corner Marker</em> (++) and the table <em>Table Edge Marker</em> (||).
+    <pre>
+&#x2b;&#x2b;------++--------------------------------------------++
+&#x7c;&#x7c; Year || Album I Listened To Way Too Much That Year ||
+&#x2b;&#x2b;------++--------------------------------------------++
+&#x7c;&#x7c; 1977 || //'77//, Talking Heads                     ||
+&#x7c;&#x7c; 1978 || //Outlandos d'Amour//, The Police          ||
+&#x7c;&#x7c; 1979 || //Unknown Pleasures//, Joy Division        ||
+&#x7c;&#x7c; 1980 || //Wall of Voodoo//, Wall of Voodoo         ||
+&#x7c;&#x7c; 1981 || //More Specials//, The Specials            ||
+&#x7c;&#x7c; 1982 || //The Dreaming//, Kate Bush                ||
+&#x7c;&#x7c; 1983 || //Feline//, The Specials                   ||
+&#x7c;&#x7c; 1984 || //Hysteria//, Human League                 ||
+&#x7c;&#x7c; 1985 || //A Cappella//, Todd Rundgren              ||
+&#x7c;&#x7c; 1986 || //The Rainmakers//, The Rainmakers         ||
+&#x7c;&#x7c; 1987 || //Sign of the Times//, Prince              ||
+&#x7c;&#x7c; 1988 || //Life's Too Good//, The Sugarcubes        ||
+&#x7c;&#x7c; 1989 || //The Sensual World//, Kate Bush           ||
+&#x2b;&#x2b;------++--------------------------------------------++</pre>
 
-  <table>
+    <p>Renders:</p>
+<table>
     <thead>
       <tr>
         <th>Year</th>
