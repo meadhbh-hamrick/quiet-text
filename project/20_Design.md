@@ -668,7 +668,8 @@ Group website [[ # Stanford HCI ]].
 &#x7c;&#x7c; 1989 || //The Sensual World//, Kate Bush           ||
 &#x2b;&#x2b;------++--------------------------------------------++</pre>
 
-    <p>Renders:</p>
+    Renders:
+    
 <table>
     <thead>
       <tr>
