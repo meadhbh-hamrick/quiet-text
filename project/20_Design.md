@@ -666,70 +666,71 @@ Group website [[ # Stanford HCI ]].
 &#x7c;&#x7c; 1987 || //Sign of the Times//, Prince              ||
 &#x7c;&#x7c; 1988 || //Life's Too Good//, The Sugarcubes        ||
 &#x7c;&#x7c; 1989 || //The Sensual World//, Kate Bush           ||
-&#x2b;&#x2b;------++--------------------------------------------++</pre>
+&#x2b;&#x2b;------++--------------------------------------------++
+</pre>
 
-    Renders:
+    <p>Renders:</p>
     
-<table>
-    <thead>
-      <tr>
-        <th>Year</th>
-        <th>Album I Listened To Way Too Much That Year</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1977</td>
-        <td><em>'77</em>, Talking Heads</td>
-      </tr>
-      <tr>
-        <td>1978</td>
-        <td><em>Outlandos d'Amour</em>, The Police</td>
-      </tr>
-      <tr>
-        <td>1979</td>
-        <td><em>Unknown Pleasures</em>, Joy Division</td>
-      </tr>
-      <tr>
-        <td>1980</td>
-        <td><em>Wall of Voodoo</em>, Wall of Voodoo</td>
-      </tr>
-      <tr>
-        <td>1981</td>
-        <td><em>More Specials</em>, The Specials</td>
-      </tr>
-      <tr>
-        <td>1982</td>
-        <td><em>The Dreaming</em>, Kate Bush</td>
-      </tr>
-      <tr>
-        <td>1983</td>
-        <td><em>Feline</em>, The Specials</td>
-      </tr>
-      <tr>
-        <td>1984</td>
-        <td><em>Hysteria</em>, Human League</td>
-      </tr>
-      <tr>
-        <td>1985</td>
-        <td><em>A Cappella</em>, Todd Rundgren</td>
-      </tr>
-      <tr>
-        <td>1986</td>
-        <td><em>The Rainmakers</em>, The Rainmakers</td>
-      </tr>
-      <tr>
-        <td>1987</td>
-        <td><em>Sign of the Times</em>, Prince</td>
-      </tr>
-      <tr>
-        <td>1988</td>
-        <td><em>Life's Too Good</em>, The Sugarcubes</td>
-      </tr>
-      <tr>
-        <td>1989</td>
-        <td><em>The Sensual World</em>, Kate Bush</td>
-      </tr>
-    </tbody>
-  </table>
+    <table>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Album I Listened To Way Too Much That Year</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1977</td>
+            <td><em>'77</em>, Talking Heads</td>
+          </tr>
+          <tr>
+            <td>1978</td>
+            <td><em>Outlandos d'Amour</em>, The Police</td>
+          </tr>
+          <tr>
+            <td>1979</td>
+            <td><em>Unknown Pleasures</em>, Joy Division</td>
+          </tr>
+          <tr>
+            <td>1980</td>
+            <td><em>Wall of Voodoo</em>, Wall of Voodoo</td>
+          </tr>
+          <tr>
+            <td>1981</td>
+            <td><em>More Specials</em>, The Specials</td>
+          </tr>
+          <tr>
+            <td>1982</td>
+            <td><em>The Dreaming</em>, Kate Bush</td>
+          </tr>
+          <tr>
+            <td>1983</td>
+            <td><em>Feline</em>, The Specials</td>
+          </tr>
+          <tr>
+            <td>1984</td>
+            <td><em>Hysteria</em>, Human League</td>
+          </tr>
+          <tr>
+            <td>1985</td>
+            <td><em>A Cappella</em>, Todd Rundgren</td>
+          </tr>
+          <tr>
+            <td>1986</td>
+            <td><em>The Rainmakers</em>, The Rainmakers</td>
+          </tr>
+          <tr>
+            <td>1987</td>
+            <td><em>Sign of the Times</em>, Prince</td>
+          </tr>
+          <tr>
+            <td>1988</td>
+            <td><em>Life's Too Good</em>, The Sugarcubes</td>
+          </tr>
+          <tr>
+            <td>1989</td>
+            <td><em>The Sensual World</em>, Kate Bush</td>
+          </tr>
+        </tbody>
+      </table></li>
 </ol>
