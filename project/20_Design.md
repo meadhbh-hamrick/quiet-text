@@ -76,11 +76,190 @@
 
 <p>
 
-  <code>Lexxer.js</code> is a package which scans input quiet text, looking for <em>lexically significant character sequences</em>.
-  This usually means things like newlines at the ends of lines and blanks at the beginnings of lines.
-  To simplify the parser, the lexxer also groups lines of non-markup text as <em>text</em> symbols.
+  <code>Lexxer.js</code> is a package which scans input quiet text, line by line, looking for <em>lexically significant character sequences</em>.
+  It converts documents consistent with the <em>Quiet Text Document Model</em> into a sequence of events consumable by "higher level" processing programs.
+  Quiet text has a line-oriented structure where each line is processed independently.
+  Each line has the structure:
 
 </p>
+
+<pre>&#x28;blank)* [ [Marker]{2,3} (blank)* ] (Text)* (newline)</pre>
+
+<p>
+
+  In other words, each line contains:
+
+</p>
+
+<ol>
+
+  <li>
+  
+    <p>
+
+      Zero or more blanks (before the marker or the text)
+    
+    </p>
+    
+  </li>
+  
+  <li>
+  
+    <p>
+
+      An optional 2 or 3 character marker ( ::, ##, **, ::, <<, etc. )
+      
+    </p>
+    
+  </li>
+  
+  <li>
+  
+    <p>
+
+      Zero or more blanks (after the marker)
+      
+    </p>
+    
+  </li>
+  
+  <li>
+  
+    <p>
+
+      Zero or more text characters
+      
+    </p>
+    
+  </li>
+  
+  <li>
+  
+    <p>
+
+      Newline sequence (either CR or CRLF)
+      
+    </p>
+    
+  </li>
+  
+</ol>
+
+<p>
+
+  The lexxer scans the input text, emitting an array with this information for each line:
+  
+</p>
+
+<ol>
+
+  <li>
+
+    <p>
+
+      Line Type ( Blank, Unmarked or Marked -- Marked lines have a mark type )
+
+    </p>
+
+  </li>
+
+  <li>
+
+    <p>
+
+      Marker Indentation [ Optional ] ( Column number of the first character of the line marker )
+
+    </p>
+
+  </li>
+
+  <li>
+
+    <p>
+
+      Indentation ( Column number of the first text character )
+
+    </p>
+
+  </li>
+
+  <li>
+
+    <p>
+
+      Text ( An array containing text and markup )
+
+    </p>
+
+  </li>
+
+</ol>
+
+<p>
+
+  Marked lines have a type relating to the initial marker found on the line.
+
+</p>
+
+<table>
+  <caption>Table 1: Marker Digraphs and Their Meaning</caption>
+  <thead>
+    <tr>
+      <th>Marker</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>::</td>
+      <td>Section Marker</td>
+    </tr>
+    <tr>
+      <td>***</td>
+      <td>Unnamed Section Marker</td>
+    </tr>
+    <tr>
+      <td>---</td>
+      <td>Lined Section Marker</td>
+    </tr>
+    <tr>
+      <td>;;</td>
+      <td>Metadata Marker</td>
+    </tr>
+    <tr>
+      <td>..</td>
+      <td>Preformatted Marker</td>
+    </tr>
+    <tr>
+      <td>##</td>
+      <td>Ordered List Marker</td>
+    </tr>
+    <tr>
+      <td>**</td>
+      <td>Bulleted List Marker</td>
+    </tr>
+    <tr>
+      <td>@@</td>
+      <td>Reference List Marker</td>
+    </tr>
+    <tr>
+      <td>""</td>
+      <td>Quote Marker</td>
+    </tr>
+    <tr>
+      <td><<</td>
+      <td>Inclusion Marker</td>
+    </tr>
+    <tr>
+      <td>++</td>
+      <td>Table Corner Marker</td>
+    </tr>
+    <tr>
+      <td>||</td>
+      <td>Table Edge Marker</td>
+    </tr>
+  </tbody>
+</table>
 
 <p>
 
@@ -89,15 +268,21 @@
 </p>
 
 <pre>Sample Document
-
-   In the history of all sample documents, this must
-be the sampelest of them all.  Behold the exemplary
-exampleness of it's text.  Marvel at the descriptive
-mundanity of it's punctuation.
-
-   Gasp at the author's bold use of two spaces after a
-period. And witness, my dear friends, the complete
-absence of the Oxford Comma.</pre>
+&nbsp;
+&#x3a;&#x3a; Introduction
+&nbsp;
+&nbsp;&nbsp;&nbsp;In the history of all sample documents, this must
+&nbsp;&nbsp;&nbsp;be the sampelest of them all.  Behold the exemplary
+&nbsp;&nbsp;&nbsp;exampleness of it's text.  Marvel at the descriptive
+&nbsp;&nbsp;&nbsp;mundanity of it's punctuation.
+&nbsp;
+&nbsp;&nbsp;&nbsp;Gasp at the author's bold use of two spaces after a
+&nbsp;&nbsp;&nbsp;period. And witness, my dear friends, the complete
+&nbsp;&nbsp;&nbsp;absence of the Oxford Comma.
+&nbsp;
+&#x3a;&#x3a; Conclusion
+&nbsp;
+&nbsp;&nbsp;&nbsp;Parsing text is //fun//.</pre>
 
 <p>
   Into a sequence of <em>events</em> like this:
@@ -105,45 +290,101 @@ absence of the Oxford Comma.</pre>
 
 <ol>
 
-  <li>Text "Sample Document"</li>
+  <li>
 
-  <li>StartOfLine</li>
+    <p><code>[ Lexxer.L_UNMARKED, undefined, 0, "Sample Document" ]</code></p>
 
-  <li>StartOfLine</li>
+  </li>
 
-  <li>Indent 3</li>
+  <li>
 
-  <li>Text "In the history of all sample documents, this must"</li>
+    <p><code>[ Lexxer.L_BLANK ]</code></p>
 
-  <li>StartOfLine</li>
+  </li>
 
-  <li>Text "be the sampelest of them all.  Behold the exemplary"</li>
+  <li>
 
-  <li>StartOfLine</li>
+    <p><code>[ Lexxer.L_NAMED_SECTION, 0, 3, "Introduction" ]</code></p>
 
-  <li>Text "exampleness of it's text.  Marvel at the descriptive"</li>
+  </li>
 
-  <li>StartOfLine</li>
+  <li>
 
-  <li>Text "mundanity of it's punctuation."</li>
+    <p><code>[ Lexxer.L_BLANK ]</code></p>
 
-  <li>StartOfLine</li>
+  </li>
 
-  <li>StartOfLine</li>
+  <li>
 
-  <li>Indent 3</li>
+    <p><code>[ Lexxer.L_UNMARKED, undefined, 3, "In the history of all sample documents, this must" ]</code></p>
 
-  <li>Text "Gasp at the author's bold use of two spaces after a"</li>
+  </li>
+  
+  <li>
 
-  <li>StartOfLine</li>
+    <p><code>[ Lexxer.L_UNMARKED, undefined, 3, "be the sampelest of them all.  Behold the exemplary" ]</code></p>
 
-  <li>Text "period. And witness, my dear friends, the complete"</li>
+  </li>
 
-  <li>StartOfLine</li>
+  <li>
 
-  <li>Text "absence of the Oxford Comma."</li>
+    <p><code>[ Lexxer.L_UNMARKED, undefined, 3, "exampleness of it's text.  Marvel at the descriptive" ]</code></p>
 
-  <li>StartOfLine</li>
+  </li>
+
+  <li>
+
+    <p><code>[ Lexxer.L_UNMARKED, undefined, 3, "mundanity of it's punctuation." ]</code></p>
+
+  </li>
+
+  <li>
+
+    <p><code>[ Lexxer.L_BLANK ]</code></p>
+
+  </li>
+
+  <li>
+
+    <p><code>[ Lexxer.L_UNMARKED, undefined, 3, "Gasp at the author's bold use of two spaces after a" ]</code></p>
+
+  </li>
+
+  <li>
+
+    <p><code>[ Lexxer.L_UNMARKED, undefined, 3, "period. And witness, my dear friends, the complete" ]</code></p>
+
+  </li>
+
+  <li>
+
+    <p> <code>[ Lexxer.L_UNMARKED, undefined, 3, "absence of the Oxford Comma." ]</code></p>
+
+  </li>
+
+  <li>
+
+    <p><code>[ Lexxer.L_BLANK ]</code></p>
+
+  </li>
+
+  <li>
+
+    <p><code>[ Lexxer.L_NAMED_SECTION, 0, 3, "Conclusion" ]</code></p>
+
+  </li>
+
+  <li>
+
+    <p><code>[ Lexxer.L_BLANK ]</code></p>
+
+  </li>
+
+  <li>
+
+    <p><code>[ Lexxer.L_UNMARKED, undefined, 3, "Parsing text is ", Lexxer.M_ITALIC, "fun", Lexxer.M_ITALIC, "." ]</code></p>
+
+  </li>
 
 </ol>
 
@@ -155,82 +396,47 @@ absence of the Oxford Comma.</pre>
 
 <ol>
 
-  <li>Documents <strong>don't</strong> start with StartOfLine event.</li>
+  <li>
 
-  <li>Documents end with a StartOfLine event to represent the notional blank line at the end of a document (even if the file doesn't end with a newline character.)</li>
+    <p>
 
-  <li>Empty Text lines don't cause a Text event to be emitted.</li>
+      Each line emits a single <em>event</em>.
+
+    </p>
+
+  </li>
+
+  <li>
+
+    <p>
+
+      Each event contains at least 4 elements, as described above.
+
+    </p>
+
+  </li>
+
+  <li>
+
+    <p>
+
+      Lines with markup will have more than 4 elements.  The fourth element and all subsequent elements are the contents of the line.
+
+     </p>
+
+  </li>
+
+  <li>
+
+    <p>
+
+      Unmarked lines substitute <em>undefine</em> for a the marker indention.
+
+     </p>
+
+  </li>
 
 </ol>
-
-<h2>parser.js</h2>
-
-<p>
-
-  <code>Parser.js</code> receives the events emitted from <code>lexxer.js</code> and converts them into a <em>Content Model</em>.
-  It's useful to understand Quiet Text input to the lexxer uses the <em>Quiet Text Document Model</em> while output from the parser implements the <em>Quiet Text Content Model</em>.
-  The two are related but not the same.
-  The document model represents the format of the input Quiet Text model while the parser's content model is an abstract description of the content of the document model.
-
-</p>
-
-<p>
-
-  For example, here is the content model of the previous example rendered as a JSON object:
-
-</p>
-
-<pre>{
-  "type": "document",
-  "meta": {
-    "title": "Sample Document"
-  },
-  "content": [
-    {
-      "type": "paragraph",
-      "meta": {
-        "name": "/1"
-      },
-      "content": [
-        {
-          "type": "sentence",
-          "content": "In the history of all sample documents, this must be the sampelest of them all."
-        },
-        {
-          "type": "sentence",
-          "content": "Behold the exemplary exampleness of it's text."
-        },
-        {
-          "type": "sentence",
-          "content": "Marvel at the descriptive mundanity of it's punctuation."
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "meta": {
-        "name": "/2"
-      },
-      "content": [
-        {
-          "type": "sentence",
-          "content": "Gasp at the author's bold use of two spaces after a period."
-        },
-        {
-          "type": "sentence",
-          "content": "And witness, my dear friends, the complete absence of the Oxford Comma."
-        }
-      ]
-    }
-  ]
-}</pre>
-
-<p>
-
-  There's no reason the content model couldn't be rendered as XML, or ProtoBufs, or Avro or any other serialization format.
-  But <code>parser.js</code> only supports JSON output.
-
-</p>
 
 <h2>The Quiet Text Document Model</h2>
 
@@ -255,7 +461,7 @@ absence of the Oxford Comma.</pre>
       Blocks can be <em>Paragraph Blocks</em>, <em>Section Blocks</em>, <em>Preformatted Blocks</em>, <em>List Blocks</em>, <em>Quote Blocks</em>, <em>Inclusion Blocks</em> or <em>Metadata Blocks</em>.</p>
     <p>Here is an example of a section block, a metadata block and four paragraph blocks:</p>
     <pre>:: Is Email Dead?
-;; Updated -- 2022-11-10T07:29:00-0800
+;; Updated == 2022-11-10T07:29:00-0800
    It was a rainy night; cold too.  I got the call from
 the 5th precinct.  Another protocol had taken the long
 trip to nowheres-ville.
@@ -285,8 +491,8 @@ loud.  Damn if it wasn't Mr. Killer-App himself: EMail.</pre>
     <p>In this example we have a title, two metadata blocks and three paragraphs.</p>
     <pre>Joe and the King
 &nbsp;
-;; Author -- Meadhbh Hamrick
-;; Copyright Date -- 2011
+;; Author == Meadhbh Hamrick
+;; Copyright Date == 2011
 &nbsp;
 "Be careful Joe," she said, "The King is the craftiest
 ring-writer this side of Yakima."
@@ -323,7 +529,7 @@ was the last thing Joe needed at the moment.</pre>
           <td>Author attribution</td>
         </tr>
         <tr>
-          <td>Copyright (c</td>
+          <td>Copyright (c)</td>
           <td>Copyright</td>
         </tr>
         <tr>
@@ -653,19 +859,33 @@ Group website [[ # Stanford HCI ]].
 <pre>&#x2b;&#x2b;------++--------------------------------------------++
 &#x7c;&#x7c; Year || Album I Listened To Way Too Much That Year ||
 &#x2b;&#x2b;------++--------------------------------------------++
+&#x7c;&#x7c;      ||                                            ||
 &#x7c;&#x7c; 1977 || //'77//, Talking Heads                     ||
+&#x7c;&#x7c;      ||                                            ||
 &#x7c;&#x7c; 1978 || //Outlandos d'Amour//, The Police          ||
+&#x7c;&#x7c;      ||                                            ||
 &#x7c;&#x7c; 1979 || //Unknown Pleasures//, Joy Division        ||
+&#x7c;&#x7c;      ||                                            ||
 &#x7c;&#x7c; 1980 || //Wall of Voodoo//, Wall of Voodoo         ||
+&#x7c;&#x7c;      ||                                            ||
 &#x7c;&#x7c; 1981 || //More Specials//, The Specials            ||
+&#x7c;&#x7c;      ||                                            ||
 &#x7c;&#x7c; 1982 || //The Dreaming//, Kate Bush                ||
+&#x7c;&#x7c;      ||                                            ||
 &#x7c;&#x7c; 1983 || //Feline//, The Specials                   ||
+&#x7c;&#x7c;      ||                                            ||
 &#x7c;&#x7c; 1984 || //Hysteria//, Human League                 ||
+&#x7c;&#x7c;      ||                                            ||
 &#x7c;&#x7c; 1985 || //A Cappella//, Todd Rundgren              ||
+&#x7c;&#x7c;      ||                                            ||
 &#x7c;&#x7c; 1986 || //The Rainmakers//, The Rainmakers         ||
+&#x7c;&#x7c;      ||                                            ||
 &#x7c;&#x7c; 1987 || //Sign of the Times//, Prince              ||
+&#x7c;&#x7c;      ||                                            ||
 &#x7c;&#x7c; 1988 || //Life's Too Good//, The Sugarcubes        ||
+&#x7c;&#x7c;      ||                                            ||
 &#x7c;&#x7c; 1989 || //The Sensual World//, Kate Bush           ||
+&#x7c;&#x7c;      ||                                            ||
 &#x2b;&#x2b;------++--------------------------------------------++
 </pre>
 
@@ -735,4 +955,73 @@ Group website [[ # Stanford HCI ]].
 </table>
 </li>
 
-<ol>
+</ol>
+
+<h2>parser.js</h2>
+
+<p>
+
+  <code>Parser.js</code> receives the events emitted from <code>lexxer.js</code> and converts them into a <em>Content Model</em>.
+  It's useful to understand Quiet Text input to the lexxer uses the <em>Quiet Text Document Model</em> while output from the parser implements the <em>Quiet Text Content Model</em>.
+  The two are related but not the same.
+  The document model represents the format of the input Quiet Text model while the parser's content model is an abstract description of the content of the document model.
+
+</p>
+
+<p>
+
+  For example, here is the content model of the previous example rendered as a JSON object:
+
+</p>
+
+<pre>{
+  "type": "document",
+  "meta": {
+    "title": "Sample Document"
+  },
+  "content": [
+    {
+      "type": "paragraph",
+      "meta": {
+        "name": "/1"
+      },
+      "content": [
+        {
+          "type": "sentence",
+          "content": "In the history of all sample documents, this must be the sampelest of them all."
+        },
+        {
+          "type": "sentence",
+          "content": "Behold the exemplary exampleness of it's text."
+        },
+        {
+          "type": "sentence",
+          "content": "Marvel at the descriptive mundanity of it's punctuation."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "meta": {
+        "name": "/2"
+      },
+      "content": [
+        {
+          "type": "sentence",
+          "content": "Gasp at the author's bold use of two spaces after a period."
+        },
+        {
+          "type": "sentence",
+          "content": "And witness, my dear friends, the complete absence of the Oxford Comma."
+        }
+      ]
+    }
+  ]
+}</pre>
+
+<p>
+
+  There's no reason the content model couldn't be rendered as XML, or ProtoBufs, or Avro or any other serialization format.
+  But <code>parser.js</code> only supports JSON output.
+
+</p>

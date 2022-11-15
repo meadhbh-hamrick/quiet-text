@@ -35,130 +35,132 @@ But the expected data-flow is this:
 
 :: lexxer.js
 
-``Lexxer.js`` is a package which scans input quiet text, looking for //lexically significant character sequences//.
-This usually means things like newlines at the ends of lines and blanks at the beginnings of lines.
-To simplify the parser, the lexxer also groups lines of non-markup text as //text// symbols.
+``Lexxer.js`` is a package which scans input quiet text, line by line, looking for //lexically significant character sequences//.
+It converts documents consistent with the //Quiet Text Document Model// into a sequence of events consumable by "higher level" processing programs.
+Quiet text has a line-oriented structure where each line is processed independently.
+Each line has the structure:
+
+.. (blank)* [ [Marker]{2,3} (blank)* ] (Text)* (newline)
+
+In other words, each line contains:
+
+  ## Zero or more blanks (before the marker or the text)
+  
+  ## An optional 2 or 3 character marker ( ::, ##, **, ::, <<, etc. )
+  
+  ## Zero or more blanks (after the marker)
+  
+  ## Zero or more text characters
+  
+  ## Newline sequence (either CR or CRLF)
+
+The lexxer scans the input text, emitting an array with this information for each line:
+
+  ## Line Type ( Blank, Unmarked or Marked -- Marked lines have a mark type )
+
+  ## Marker Indentation [ Optional ] ( Column number of the first character of the line marker )
+  
+  ## Indentation ( Column number of the first text character )
+  
+  ## Text ( An array containing text and markup )
+  
+Marked lines have a type relating to the initial marker found on the line.
+
+     ++--------++------------------------++
+     || Marker || Meaning                ||
+     ++--------++------------------------++
+     ||        ||                        ||
+     ||   ::   || Section Marker         ||
+     ||        ||                        ||
+     ||   ***  || Unnamed Section Marker ||
+     ||        ||                        ||
+     ||   ---  || Lined Section Marker   ||
+     ||        ||                        ||
+     ||   ;;   || Metadata Marker        ||
+     ||        ||                        ||
+     ||   ..   || Preformatted Marker    ||
+     ||        ||                        ||
+     ||   ##   || Ordered List Marker    ||
+     ||        ||                        ||
+     ||   **   || Bulleted List Marker   ||
+     ||        ||                        ||
+     ||   @@   || Reference List Marker  ||
+     ||        ||                        ||
+     ||   ""   || Quote Marker           ||
+     ||        ||                        ||
+     ||   <<   || Inclusion Marker       ||
+     ||        ||                        ||
+     ||   ++   || Table Corner Marker    ||
+     ||        ||                        ||
+     ||  \\||  || Table Edge Marker      ||
+     ||        ||                        ||
+     ++--------++------------------------++
+
+     ;; Table == Marker Digraphs and Their Meaning
 
 For example, it would convert this text:
 
    .. Sample Document
    ..
+   .. :: Introduction
+   ..
    ..    In the history of all sample documents, this must
-   .. be the sampelest of them all.  Behold the exemplary
-   .. exampleness of it's text.  Marvel at the descriptive
-   .. mundanity of it's punctuation.
+   ..    be the sampelest of them all.  Behold the exemplary
+   ..    exampleness of it's text.  Marvel at the descriptive
+   ..    mundanity of it's punctuation.
    ..
    ..    Gasp at the author's bold use of two spaces after a
-   .. period. And witness, my dear friends, the complete
-   .. absence of the Oxford Comma.
+   ..    period. And witness, my dear friends, the complete
+   ..    absence of the Oxford Comma.
+   ..
+   .. :: Conclusion
+   ..
+   ..    Parsing text is //fun//.
 
 Into a sequence of //events// like this:
 
-   ## Text "Sample Document"
+   ## ``[ Lexxer.L_UNMARKED, undefined, 0, "Sample Document" ]``
 
-   ## StartOfLine
+   ## ``[ Lexxer.L_BLANK ]``
 
-   ## StartOfLine
+   ## ``[ Lexxer.L_NAMED_SECTION, 0, 3, "Introduction" ]``
 
-   ## Indent 3
+   ## ``[ Lexxer.L_BLANK ]``
 
-   ## Text "In the history of all sample documents, this must"
+   ## ``[ Lexxer.L_UNMARKED, undefined, 3, "In the history of all sample documents, this must" ]``
+   
+   ## ``[ Lexxer.L_UNMARKED, undefined, 3, "be the sampelest of them all.  Behold the exemplary" ]``
+   
+   ## ``[ Lexxer.L_UNMARKED, undefined, 3, "exampleness of it's text.  Marvel at the descriptive" ]``
+   
+   ## ``[ Lexxer.L_UNMARKED, undefined, 3, "mundanity of it's punctuation." ]``
 
-   ## StartOfLine
+   ## ``[ Lexxer.L_BLANK ]``
 
-   ## Text "be the sampelest of them all.  Behold the exemplary"
+   ## ``[ Lexxer.L_UNMARKED, undefined, 3, "Gasp at the author's bold use of two spaces after a" ]``
 
-   ## StartOfLine
+   ## ``[ Lexxer.L_UNMARKED, undefined, 3, "period. And witness, my dear friends, the complete" ]``
+   
+   ## ``[ Lexxer.L_UNMARKED, undefined, 3, "absence of the Oxford Comma." ]``
 
-   ## Text "exampleness of it's text.  Marvel at the descriptive"
+   ## ``[ Lexxer.L_BLANK ]``
 
-   ## StartOfLine
+   ## ``[ Lexxer.L_NAMED_SECTION, 0, 3, "Conclusion" ]``
 
-   ## Text "mundanity of it's punctuation."
+   ## ``[ Lexxer.L_BLANK ]``
 
-   ## StartOfLine
-
-   ## StartOfLine
-
-   ## Indent 3
-
-   ## Text "Gasp at the author's bold use of two spaces after a"
-
-   ## StartOfLine
-
-   ## Text "period. And witness, my dear friends, the complete"
-
-   ## StartOfLine
-
-   ## Text "absence of the Oxford Comma."
-
-   ## StartOfLine
+   ## ``[ Lexxer.L_UNMARKED, undefined, 3, "Parsing text is ", Lexxer.M_ITALIC, "fun", Lexxer.M_ITALIC, "." ]``
 
 A few things to take away from this:
 
-  ## Documents !! don't !! start with StartOfLine event.
+  ## Each line emits a single //event//.
 
-  ## Documents end with a StartOfLine event to represent the notional blank line at the end of a document (even if the file doesn't end with a newline character.)
+  ## Each event contains at least 4 elements, as described above.
 
-  ## Empty Text lines don't cause a Text event to be emitted.
+  ## Lines with markup will have more than 4 elements.  The fourth element and all subsequent elements are the contents of the line.
 
-:: parser.js
-
-``Parser.js`` receives the events emitted from ``lexxer.js`` and converts them into a //Content Model//.
-It's useful to understand Quiet Text input to the lexxer uses the //Quiet Text Document Model// while output from the parser implements the //Quiet Text Content Model//.
-The two are related but not the same.
-The document model represents the format of the input Quiet Text model while the parser's content model is an abstract description of the content of the document model.
-
-For example, here is the content model of the previous example rendered as a JSON object:
-
-   .. {
-   ..   "type": "document",
-   ..   "meta": {
-   ..     "title": "Sample Document"
-   ..   },
-   ..   "content": [
-   ..     {
-   ..       "type": "paragraph",
-   ..       "meta": {
-   ..         "name": "/1"
-   ..       },
-   ..       "content": [
-   ..         {
-   ..           "type": "sentence",
-   ..           "content": "In the history of all sample documents, this must be the sampelest of them all."
-   ..         },
-   ..         {
-   ..           "type": "sentence",
-   ..           "content": "Behold the exemplary exampleness of it's text."
-   ..         },
-   ..         {
-   ..           "type": "sentence",
-   ..           "content": "Marvel at the descriptive mundanity of it's punctuation."
-   ..         }
-   ..       ]
-   ..     },
-   ..     {
-   ..       "type": "paragraph",
-   ..       "meta": {
-   ..         "name": "/2"
-   ..       },
-   ..       "content": [
-   ..         {
-   ..           "type": "sentence",
-   ..           "content": "Gasp at the author's bold use of two spaces after a period."
-   ..         },
-   ..         {
-   ..           "type": "sentence",
-   ..           "content": "And witness, my dear friends, the complete absence of the Oxford Comma."
-   ..         }
-   ..       ]
-   ..     }
-   ..   ]
-   .. }
-
-There's no reason the content model couldn't be rendered as XML, or ProtoBufs, or Avro or any other serialization format.
-But ``parser.js`` only supports JSON output.
-
+  ## Unmarked lines substitute //undefined// for a the marker indention.
+  
 :: The Quiet Text Document Model
 
 Quiet Text assumes all documents can be represented with this model:
@@ -605,19 +607,33 @@ Quiet Text assumes all documents can be represented with this model:
       .. ++------++--------------------------------------------++
       .. || Year || Album I Listened To Way Too Much That Year ||
       .. ++------++--------------------------------------------++
+      .. ||      ||                                            ||
       .. || 1977 || //'77//, Talking Heads                     ||
+      .. ||      ||                                            ||
       .. || 1978 || //Outlandos d'Amour//, The Police          ||
+      .. ||      ||                                            ||
       .. || 1979 || //Unknown Pleasures//, Joy Division        ||
+      .. ||      ||                                            ||
       .. || 1980 || //Wall of Voodoo//, Wall of Voodoo         ||
+      .. ||      ||                                            ||
       .. || 1981 || //More Specials//, The Specials            ||
+      .. ||      ||                                            ||
       .. || 1982 || //The Dreaming//, Kate Bush                ||
+      .. ||      ||                                            ||
       .. || 1983 || //Feline//, The Specials                   ||
+      .. ||      ||                                            ||
       .. || 1984 || //Hysteria//, Human League                 ||
+      .. ||      ||                                            ||
       .. || 1985 || //A Cappella//, Todd Rundgren              ||
+      .. ||      ||                                            ||
       .. || 1986 || //The Rainmakers//, The Rainmakers         ||
+      .. ||      ||                                            ||
       .. || 1987 || //Sign of the Times//, Prince              ||
+      .. ||      ||                                            ||
       .. || 1988 || //Life's Too Good//, The Sugarcubes        ||
+      .. ||      ||                                            ||
       .. || 1989 || //The Sensual World//, Kate Bush           ||
+      .. ||      ||                                            ||
       .. ++------++--------------------------------------------++
 
       Renders:
@@ -625,17 +641,88 @@ Quiet Text assumes all documents can be represented with this model:
       ++------++--------------------------------------------++
       || Year || Album I Listened To Way Too Much That Year ||
       ++------++--------------------------------------------++
+      ||      ||                                            ||
       || 1977 || //'77//, Talking Heads                     ||
+      ||      ||                                            ||
       || 1978 || //Outlandos d'Amour//, The Police          ||
+      ||      ||                                            ||
       || 1979 || //Unknown Pleasures//, Joy Division        ||
+      ||      ||                                            ||
       || 1980 || //Wall of Voodoo//, Wall of Voodoo         ||
+      ||      ||                                            ||
       || 1981 || //More Specials//, The Specials            ||
+      ||      ||                                            ||
       || 1982 || //The Dreaming//, Kate Bush                ||
+      ||      ||                                            ||
       || 1983 || //Feline//, The Specials                   ||
+      ||      ||                                            ||
       || 1984 || //Hysteria//, Human League                 ||
+      ||      ||                                            ||
       || 1985 || //A Cappella//, Todd Rundgren              ||
+      ||      ||                                            ||
       || 1986 || //The Rainmakers//, The Rainmakers         ||
+      ||      ||                                            ||
       || 1987 || //Sign of the Times//, Prince              ||
+      ||      ||                                            ||
       || 1988 || //Life's Too Good//, The Sugarcubes        ||
+      ||      ||                                            ||
       || 1989 || //The Sensual World//, Kate Bush           ||
+      ||      ||                                            ||
       ++------++--------------------------------------------++
+
+:: parser.js
+
+``Parser.js`` receives the events emitted from ``lexxer.js`` and converts them into a //Content Model//.
+It's useful to understand Quiet Text input to the lexxer uses the //Quiet Text Document Model// while output from the parser implements the //Quiet Text Content Model//.
+The two are related but not the same.
+The document model represents the format of the input Quiet Text model while the parser's content model is an abstract description of the content of the document model.
+
+For example, here is the content model of the previous example rendered as a JSON object:
+
+   .. {
+   ..   "type": "document",
+   ..   "meta": {
+   ..     "title": "Sample Document"
+   ..   },
+   ..   "content": [
+   ..     {
+   ..       "type": "paragraph",
+   ..       "meta": {
+   ..         "name": "/1"
+   ..       },
+   ..       "content": [
+   ..         {
+   ..           "type": "sentence",
+   ..           "content": "In the history of all sample documents, this must be the sampelest of them all."
+   ..         },
+   ..         {
+   ..           "type": "sentence",
+   ..           "content": "Behold the exemplary exampleness of it's text."
+   ..         },
+   ..         {
+   ..           "type": "sentence",
+   ..           "content": "Marvel at the descriptive mundanity of it's punctuation."
+   ..         }
+   ..       ]
+   ..     },
+   ..     {
+   ..       "type": "paragraph",
+   ..       "meta": {
+   ..         "name": "/2"
+   ..       },
+   ..       "content": [
+   ..         {
+   ..           "type": "sentence",
+   ..           "content": "Gasp at the author's bold use of two spaces after a period."
+   ..         },
+   ..         {
+   ..           "type": "sentence",
+   ..           "content": "And witness, my dear friends, the complete absence of the Oxford Comma."
+   ..         }
+   ..       ]
+   ..     }
+   ..   ]
+   .. }
+
+There's no reason the content model couldn't be rendered as XML, or ProtoBufs, or Avro or any other serialization format.
+But ``parser.js`` only supports JSON output.
