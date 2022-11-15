@@ -92,107 +92,24 @@
 </p>
 
 <ol>
-
-  <li>
-  
-    <p>
-
-      Zero or more blanks (before the marker or the text)
-    
-    </p>
-    
-  </li>
-  
-  <li>
-  
-    <p>
-
-      An optional 2 or 3 character marker ( ::, ##, **, ::, <<, etc. )
-      
-    </p>
-    
-  </li>
-  
-  <li>
-  
-    <p>
-
-      Zero or more blanks (after the marker)
-      
-    </p>
-    
-  </li>
-  
-  <li>
-  
-    <p>
-
-      Zero or more text characters
-      
-    </p>
-    
-  </li>
-  
-  <li>
-  
-    <p>
-
-      Newline sequence (either CR or CRLF)
-      
-    </p>
-    
-  </li>
-  
+  <li><p>Zero or more blanks (before the marker or the text)</p></li>
+  <li><p>An optional 2 or 3 character marker ( ::, ##, **, ::, <<, etc. )</p></li>
+  <li><p>Zero or more blanks (after the marker)</p></li>
+  <li><p>Zero or more text characters</p></li>
+  <li><p>Newline sequence (either CR or CRLF)</p></li>
 </ol>
 
 <p>
 
   The lexxer scans the input text, emitting an array with this information for each line:
-  
+
 </p>
 
 <ol>
-
-  <li>
-
-    <p>
-
-      Line Type ( Blank, Unmarked or Marked -- Marked lines have a mark type )
-
-    </p>
-
-  </li>
-
-  <li>
-
-    <p>
-
-      Marker Indentation [ Optional ] ( Column number of the first character of the line marker )
-
-    </p>
-
-  </li>
-
-  <li>
-
-    <p>
-
-      Indentation ( Column number of the first text character )
-
-    </p>
-
-  </li>
-
-  <li>
-
-    <p>
-
-      Text ( An array containing text and markup )
-
-    </p>
-
-  </li>
-
+  <li><p>Line Type ( Blank, Unmarked or Marked -- Marked lines have a mark type )</p></li>
+  <li><p>Marker Indentation [ Optional ] ( Column number of the first character of the line marker )</p></li>
+  <li><p>Indentation ( Column number of the first text character )</p></li>
+  <li><p>Text ( An array containing text and markup )</p></li>
 </ol>
 
 <p>
@@ -289,103 +206,22 @@
 </p>
 
 <ol>
-
-  <li>
-
-    <p><code>[ Lexxer.L_UNMARKED, undefined, 0, "Sample Document" ]</code></p>
-
-  </li>
-
-  <li>
-
-    <p><code>[ Lexxer.L_BLANK ]</code></p>
-
-  </li>
-
-  <li>
-
-    <p><code>[ Lexxer.L_NAMED_SECTION, 0, 3, "Introduction" ]</code></p>
-
-  </li>
-
-  <li>
-
-    <p><code>[ Lexxer.L_BLANK ]</code></p>
-
-  </li>
-
-  <li>
-
-    <p><code>[ Lexxer.L_UNMARKED, undefined, 3, "In the history of all sample documents, this must" ]</code></p>
-
-  </li>
-  
-  <li>
-
-    <p><code>[ Lexxer.L_UNMARKED, undefined, 3, "be the sampelest of them all.  Behold the exemplary" ]</code></p>
-
-  </li>
-
-  <li>
-
-    <p><code>[ Lexxer.L_UNMARKED, undefined, 3, "exampleness of it's text.  Marvel at the descriptive" ]</code></p>
-
-  </li>
-
-  <li>
-
-    <p><code>[ Lexxer.L_UNMARKED, undefined, 3, "mundanity of it's punctuation." ]</code></p>
-
-  </li>
-
-  <li>
-
-    <p><code>[ Lexxer.L_BLANK ]</code></p>
-
-  </li>
-
-  <li>
-
-    <p><code>[ Lexxer.L_UNMARKED, undefined, 3, "Gasp at the author's bold use of two spaces after a" ]</code></p>
-
-  </li>
-
-  <li>
-
-    <p><code>[ Lexxer.L_UNMARKED, undefined, 3, "period. And witness, my dear friends, the complete" ]</code></p>
-
-  </li>
-
-  <li>
-
-    <p> <code>[ Lexxer.L_UNMARKED, undefined, 3, "absence of the Oxford Comma." ]</code></p>
-
-  </li>
-
-  <li>
-
-    <p><code>[ Lexxer.L_BLANK ]</code></p>
-
-  </li>
-
-  <li>
-
-    <p><code>[ Lexxer.L_NAMED_SECTION, 0, 3, "Conclusion" ]</code></p>
-
-  </li>
-
-  <li>
-
-    <p><code>[ Lexxer.L_BLANK ]</code></p>
-
-  </li>
-
-  <li>
-
-    <p><code>[ Lexxer.L_UNMARKED, undefined, 3, "Parsing text is ", Lexxer.M_ITALIC, "fun", Lexxer.M_ITALIC, "." ]</code></p>
-
-  </li>
-
+  <li><p><code>[ Lexxer.L_UNMARKED, undefined, 0, "Sample Document" ]</code></p></li>
+  <li><p><code>[ Lexxer.L_BLANK ]</code></p></li>
+  <li><p><code>[ Lexxer.L_NAMED_SECTION, 0, 3, "Introduction" ]</code></p></li>
+  <li><p><code>[ Lexxer.L_BLANK ]</code></p></li>
+  <li><p><code>[ Lexxer.L_UNMARKED, undefined, 3, "In the history of all sample documents, this must" ]</code></p></li>
+  <li><p><code>[ Lexxer.L_UNMARKED, undefined, 3, "be the sampelest of them all.  Behold the exemplary" ]</code></p></li>
+  <li><p><code>[ Lexxer.L_UNMARKED, undefined, 3, "exampleness of it's text.  Marvel at the descriptive" ]</code></p></li>
+  <li><p><code>[ Lexxer.L_UNMARKED, undefined, 3, "mundanity of it's punctuation." ]</code></p></li>
+  <li><p><code>[ Lexxer.L_BLANK ]</code></p></li>
+  <li><p><code>[ Lexxer.L_UNMARKED, undefined, 3, "Gasp at the author's bold use of two spaces after a" ]</code></p></li>
+  <li><p><code>[ Lexxer.L_UNMARKED, undefined, 3, "period. And witness, my dear friends, the complete" ]</code></p></li>
+  <li><p> <code>[ Lexxer.L_UNMARKED, undefined, 3, "absence of the Oxford Comma." ]</code></p></li>
+  <li><p><code>[ Lexxer.L_BLANK ]</code></p></li>
+  <li><p><code>[ Lexxer.L_NAMED_SECTION, 0, 3, "Conclusion" ]</code></p></li>
+  <li><p><code>[ Lexxer.L_BLANK ]</code></p></li>
+  <li><p><code>[ Lexxer.L_UNMARKED, undefined, 3, "Parsing text is ", Lexxer.M_ITALIC, "fun", Lexxer.M_ITALIC, "." ]</code></p></li>
 </ol>
 
 <p>
@@ -395,47 +231,10 @@
 </p>
 
 <ol>
-
-  <li>
-
-    <p>
-
-      Each line emits a single <em>event</em>.
-
-    </p>
-
-  </li>
-
-  <li>
-
-    <p>
-
-      Each event contains at least 4 elements, as described above.
-
-    </p>
-
-  </li>
-
-  <li>
-
-    <p>
-
-      Lines with markup will have more than 4 elements.  The fourth element and all subsequent elements are the contents of the line.
-
-     </p>
-
-  </li>
-
-  <li>
-
-    <p>
-
-      Unmarked lines substitute <em>undefine</em> for a the marker indention.
-
-     </p>
-
-  </li>
-
+  <li><p>Each line emits a single <em>event</em>.</p></li>
+  <li><p>Each event contains at least 4 elements, as described above.</p></li>
+  <li><p>Lines with markup will have more than 4 elements.  The fourth element and all subsequent elements are the contents of the line.</p></li>
+  <li><p>Unmarked lines substitute <em>undefine</em> for a the marker indention.</p></li>
 </ol>
 
 <h2>The Quiet Text Document Model</h2>
@@ -855,7 +654,7 @@ Group website [[ # Stanford HCI ]].
 @@ Stanford HCI == [[  https://hci.stanford.edu/  ]]</pre></li>
 
   <li><p>Tables use the <em>Table Corner Marker</em> (++) and the table <em>Table Edge Marker</em> (||).
-  
+
 <pre>&#x2b;&#x2b;------++--------------------------------------------++
 &#x7c;&#x7c; Year || Album I Listened To Way Too Much That Year ||
 &#x2b;&#x2b;------++--------------------------------------------++
@@ -890,7 +689,7 @@ Group website [[ # Stanford HCI ]].
 </pre>
 
 <p>Renders:</p>
-    
+
 <table>
   <thead>
     <tr>

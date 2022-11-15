@@ -45,13 +45,13 @@ Each line has the structure:
 In other words, each line contains:
 
   ## Zero or more blanks (before the marker or the text)
-  
+
   ## An optional 2 or 3 character marker ( ::, ##, **, ::, <<, etc. )
-  
+
   ## Zero or more blanks (after the marker)
-  
+
   ## Zero or more text characters
-  
+
   ## Newline sequence (either CR or CRLF)
 
 The lexxer scans the input text, emitting an array with this information for each line:
@@ -59,11 +59,11 @@ The lexxer scans the input text, emitting an array with this information for eac
   ## Line Type ( Blank, Unmarked or Marked -- Marked lines have a mark type )
 
   ## Marker Indentation [ Optional ] ( Column number of the first character of the line marker )
-  
+
   ## Indentation ( Column number of the first text character )
-  
+
   ## Text ( An array containing text and markup )
-  
+
 Marked lines have a type relating to the initial marker found on the line.
 
      ++--------++------------------------++
@@ -128,11 +128,11 @@ Into a sequence of //events// like this:
    ## ``[ Lexxer.L_BLANK ]``
 
    ## ``[ Lexxer.L_UNMARKED, undefined, 3, "In the history of all sample documents, this must" ]``
-   
+
    ## ``[ Lexxer.L_UNMARKED, undefined, 3, "be the sampelest of them all.  Behold the exemplary" ]``
-   
+
    ## ``[ Lexxer.L_UNMARKED, undefined, 3, "exampleness of it's text.  Marvel at the descriptive" ]``
-   
+
    ## ``[ Lexxer.L_UNMARKED, undefined, 3, "mundanity of it's punctuation." ]``
 
    ## ``[ Lexxer.L_BLANK ]``
@@ -140,7 +140,7 @@ Into a sequence of //events// like this:
    ## ``[ Lexxer.L_UNMARKED, undefined, 3, "Gasp at the author's bold use of two spaces after a" ]``
 
    ## ``[ Lexxer.L_UNMARKED, undefined, 3, "period. And witness, my dear friends, the complete" ]``
-   
+
    ## ``[ Lexxer.L_UNMARKED, undefined, 3, "absence of the Oxford Comma." ]``
 
    ## ``[ Lexxer.L_BLANK ]``
@@ -160,7 +160,7 @@ A few things to take away from this:
   ## Lines with markup will have more than 4 elements.  The fourth element and all subsequent elements are the contents of the line.
 
   ## Unmarked lines substitute //undefined// for a the marker indention.
-  
+
 :: The Quiet Text Document Model
 
 Quiet Text assumes all documents can be represented with this model:
